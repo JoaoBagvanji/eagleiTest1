@@ -3786,7 +3786,8 @@ var controle = $("input[name='travelinfo_proposito']:checked").val();
 
 	
 		if($("#jobcard_clienteid").val()=="5e71cba0ccff6e17448e12d4"){
-			var reasonsJobcardArray = ["AC Mains Failure", "Rectifier System", "Rectifier Module", "Generator Low Fuel","Outro", "Generator Abnormal", "Generator Running", "High Temperature", "Battery Low", "Door Switch Intruder", "Motion Detector", "FAN Stalled", "Smoke Detector", "Site Down", "RRU replacement", "RRU fiber", "Fly leads", "UBBP board", "WBBP board", "BBU board", "RTN905 RTN950", "RTN controller board", "RTN Fan unit", "OSN fan unit", "ODU replacement", "Patch Cords", "Outdoor cabinet cooling system"];
+			var reasonsJobcardArray = ["Falha de energia", "Temperatura Alta", "Bateria com carga baixa", "Gerador em anomalia", "Nivel baixo de combustivel", "Falha do Sistema de Retificador", "Transmissao", "Radio", "Gerador em funcionamento", "Sistema de Incendio", "Sensor de movimento", "Outro"];
+			// var reasonsJobcardArray1 = ["AC Mains Failure", "Rectifier System", "Rectifier Module", "Generator Low Fuel","Outro", "Generator Abnormal", "Generator Running", "High Temperature", "Battery Low", "Door Switch Intruder", "Motion Detector", "FAN Stalled", "Smoke Detector", "Site Down", "RRU replacement", "RRU fiber", "Fly leads", "UBBP board", "WBBP board", "BBU board", "RTN905 RTN950", "RTN controller board", "RTN Fan unit", "OSN fan unit", "ODU replacement", "Patch Cords", "Outdoor cabinet cooling system"];
 			$(".jobcard_jobinfoselect").removeClass('hide');
 			$(".jobcard_jobinfoinput").addClass('hide');
 

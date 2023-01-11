@@ -132,7 +132,6 @@ block content
 										-else
 											-if(!Jobcards[index].jobcard_analisederisco || !Jobcards[index].jobcard_analisederiscoAmbiental || !Jobcards[index].jobcard_analisederisco.jobcard_risk1 || !Jobcards[index].jobcard_analisederiscoAmbiental.jobcard_risk21)
 												a.tooltipped.pointer.analiseRisco(style="margin-left: 5px; color:green",data-position="top", data-delay="10", data-tooltip="Analise de Risco", data-user-new="#{Jobcards[index]._id}", datajobtype="#{Jobcards[index].jobcard_jobtype}") <img width="30px" src="/img/risk2.png" style="margin-bottom:-2px">
-												-
 											-else
 												a.tooltipped.pointer.generatordetalhes(style="margin-left: 0px; color:green",data-position="top", data-delay="10", data-tooltip="Generator Details", datareferencia="#{Jobcards[index]._id}") <img width="27px" src="/img/generator.png" style="margin-bottom:-2px">
 												a.tooltipped.pointer.credelecdetalhes(style="margin-left: 0px; color:green",data-position="top", data-delay="10", data-tooltip="Credelec Details", datareferencia="#{Jobcards[index]._id}") <img width="27px" src="/img/electricity.png" style="margin-bottom:-2px">
