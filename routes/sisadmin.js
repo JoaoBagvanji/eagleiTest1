@@ -634,7 +634,10 @@ router.post("/editar_province", upload.any(), async(req, res)=>{
 
 	var todo=await sisadmin_db.find();
 
-	await sisadmin_db.updateOne({_id:todo[0]._id, provincia:{$elemMatch:{_id:req.body.idioty}}}, {"provincia.$.nome":req.body.nome, "provincia.$.nome_supervisor":req.body.nome_supervisor,"provincia.$.regiao":req.body.regiao, "provincia.$.editado_por":userData.nome,"provincia.$.data_edicao":edd })
+	var add =await sisadmin_db.updateOne({_id:todo[0]._id, provincia:{$elemMatch:{_id:req.body.idioty}}}, {"provincia.$.nome":req.body.nome, "provincia.$.nome_supervisor":req.body.nome_supervisor,"provincia.$.regiao":req.body.regiao, "provincia.$.editado_por":userData.nome,"provincia.$.data_edicao":edd })
+	if(add.n==1)
+		var nome = await user_db.updateOne({nome:req.body.nome_supervisor},{$set:{funcao:"regional_manager"}});
+
 	res.json({teste:"done"})
 })
 
@@ -770,7 +773,10 @@ router.post("/editar_region", upload.any(), async(req, res)=>{
 
 	var todo=await sisadmin_db.find();
 
-	await sisadmin_db.updateOne({_id:todo[0]._id, regiao:{$elemMatch:{_id:req.body.idioty}}}, {"regiao.$.nome":req.body.nome, "regiao.$.regional_manager":req.body.regional_manager, "regiao.$.editado_por":userData.nome,"regiao.$.data_edicao":edd })
+	let added  =await sisadmin_db.updateOne({_id:todo[0]._id, regiao:{$elemMatch:{_id:req.body.idioty}}}, {"regiao.$.nome":req.body.nome, "regiao.$.regional_manager":req.body.regional_manager, "regiao.$.editado_por":userData.nome,"regiao.$.data_edicao":edd })
+	if(added.n==1)
+	var name = await user_db.updateOne({nome:req.body.regional_manager},{$set:{funcao:"Regional Manager"}});
+	
 	res.json({teste:"done"})
 })
 
