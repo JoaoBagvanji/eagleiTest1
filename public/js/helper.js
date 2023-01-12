@@ -33039,7 +33039,7 @@ var demoJson = {
 		},
 		"provincia_adm":{
 				"en":"Province",
-				"pt":"Provincia"
+				"pt":"Província"
 		},
 		"viatura_adm":{
 				"en":"Vehicle",
@@ -33075,12 +33075,16 @@ var demoJson = {
 	},
 	"Provincia":{
 			"en":"Province",
-			"pt":"Provincia"
+			"pt":"Província"
 	},
 	"regiao":{
 			"en":"Region",
 			"pt":"Regiao"
-	}
+	},
+	"provincia":{
+		"pt": "Província",
+		"en": "Province"
+	},
 },
 
 "Armazem_home":{
@@ -33094,12 +33098,16 @@ var demoJson = {
 	},
 	"provincia":{
 			"en":"Province",
-			"pt":"Provincia"
+			"pt":"Província"
 	},
 	"regiao":{
 			"en":"Region",
 			"pt":"Regiao"
-	}
+	},
+	"provincia":{
+		"pt": "Província",
+		"en": "Province"
+	},
 },
 
 
@@ -33110,11 +33118,15 @@ var demoJson = {
 	},
 	"Provincia":{
 			"en":"Province",
-			"pt":"Provincia"
+			"pt":"Província"
 	},
 	"regiao":{
 			"en":"Region",
 			"pt":"Regiao"
+	},
+	"provincia":{
+		"pt": "Província",
+		"en": "Province"
 	},
 	"titulo1":{
 			"en":"Warehouse registration",
@@ -33640,7 +33652,7 @@ var demoJson = {
 					},
 
 					"provincia": {
-							"pt": "Provincia",
+							"pt": "Província",
 							"en": "Province"
 					},
 
@@ -33942,11 +33954,12 @@ var demoJson = {
 							"pt": "Detalhes de Energia",
 							"en": "Energy Details"
 					},
+					
 
 						"previohour": {
 						"pt": "Horas Anteriores",
 						"en": "Previous Refuel Hours"
-				},
+					},
 
 							"Litros": {
 							"pt": "Litros Abastecidos",
@@ -34173,6 +34186,11 @@ var demoJson = {
 					"region":{
 						"pt": "Região",
 						"en": "Region"
+					},
+
+					"province":{
+						"pt": "Província",
+						"en": "Province"
 					},
 
 					"status":{
@@ -34763,6 +34781,10 @@ var demoJson = {
 							"pt": "Região",
 							"en": "Region"
 					},
+					"provincia":{
+						"pt": "Província",
+						"en": "Province"
+					},
 
 					"jobtype": {
 							"pt": "Tipo de trabalho",
@@ -35304,6 +35326,10 @@ var demoJson = {
 					"regiao": {
 							"pt": "Região",
 							"en": "Region"
+					},
+					"provincia":{
+						"pt": "Província",
+						"en": "Province"
 					},
 
 					"area": {
@@ -37377,6 +37403,10 @@ var demoJson = {
 							"en": "Region",
 							"pt": "Região"
 					},
+					"provincia":{
+						"pt": "Província",
+						"en": "Province"
+					},
 					"departamento": {
 							"en": "Department",
 							"pt": "Departamento"
@@ -37554,6 +37584,10 @@ var demoJson = {
 					"regiao": {
 							"pt": "Região",
 							"en": "Region"
+					},
+					"provincia":{
+						"pt": "Província",
+						"en": "Province"
 					},
 
 					"sitedetails": {

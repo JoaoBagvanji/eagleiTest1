@@ -16257,7 +16257,7 @@ router.post("/updatephotoinfoHvacInfo/:id",  uploadcallhvac.any(), async functio
 		var datefrom = await new Date(jobcard.reportsmaintenance_fromdate.split('/').reverse().join('-'));		
 		// queryobject.jobcard_departamento=jobcard.reportsmaintenance_department;
 
-		var numbers = await jobcards.find({...queryobject, ttnumber_status:"Complete", 'jobcard_credelecinfo.0':{$exists:true},data_ultimaactualizacaojobcard:{$gte:datefrom, $lte:dateto}},{jobcard_site:1, jobcard_ttnumber:1, jobcard_planneddate:1, data_registojobcard1:1, jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,jobcard_credelecinfo:1, data_ultimaactualizacaojobcard:1}).lean();
+		var numbers = await jobcards.find({...queryobject, ttnumber_status:"Complete", 'jobcard_credelecinfo.0':{$exists:true},data_ultimaactualizacaojobcard:{$gte:datefrom, $lte:dateto}},{jobcard_site:1, jobcard_ttnumber:1, jobcard_planneddate:1, data_registojobcard1:1, jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,jobcard_provincia:1,jobcard_credelecinfo:1, data_ultimaactualizacaojobcard:1}).lean();
 		// console.log(numbers)
 
 		numbers.sort(function(a,b){ 
@@ -16272,6 +16272,7 @@ router.post("/updatephotoinfoHvacInfo/:id",  uploadcallhvac.any(), async functio
 					tt.jobcard_site = await gen[0].jobcard_site? gen[0].jobcard_site:'';
 					tt.jobcard_jobtype = await gen[0].jobcard_jobtype? gen[0].jobcard_jobtype:'';
 					tt.jobcard_regiao = await gen[0].jobcard_regiao? gen[0].jobcard_regiao:'';
+					tt.jobcard_provincia = await gen[0].jobcard_provincia? gen[0].jobcard_provincia:'';
 					tt.jobcard_tecniconome = await gen[0].jobcard_tecniconome? gen[0].jobcard_tecniconome:'';
 					tt.data_ultimaactualizacaojobcard = await gen[0].data_ultimaactualizacaojobcard? gen[0].data_ultimaactualizacaojobcard:'';
 					tt.jobcard_credelecnr = await gen[0].jobcard_credelecinfo[0].jobcard_credelecnr?  gen[0].jobcard_credelecinfo[0].jobcard_credelecnr:'';
@@ -16309,7 +16310,7 @@ router.post("/updatephotoinfoHvacInfo/:id",  uploadcallhvac.any(), async functio
 		var datefrom = await new Date(jobcard.reportsmaintenance_fromdate.split('/').reverse().join('-'));		
 		console.log('gagagagaaa')
 
-		var numbers = await jobcards.find({...queryobject, ttnumber_status:"Complete",'jobcard_credelecinfo.0':{$exists:true},data_ultimaactualizacaojobcard:{$gte:datefrom, $lte:dateto}},{jobcard_site:1, jobcard_ttnumber:1, jobcard_planneddate:1, data_registojobcard1:1, jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,jobcard_credelecinfo:1, data_ultimaactualizacaojobcard:1}).lean();
+		var numbers = await jobcards.find({...queryobject, ttnumber_status:"Complete",'jobcard_credelecinfo.0':{$exists:true},data_ultimaactualizacaojobcard:{$gte:datefrom, $lte:dateto}},{jobcard_site:1, jobcard_ttnumber:1, jobcard_planneddate:1, data_registojobcard1:1, jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,jobcard_provincia:1,jobcard_credelecinfo:1, data_ultimaactualizacaojobcard:1}).lean();
 		console.log(numbers)
 
 		numbers.sort(function(a,b){ 
@@ -16324,6 +16325,7 @@ router.post("/updatephotoinfoHvacInfo/:id",  uploadcallhvac.any(), async functio
 					tt.jobcard_site = await gen[0].jobcard_site? gen[0].jobcard_site:'';
 					tt.jobcard_jobtype = await gen[0].jobcard_jobtype? gen[0].jobcard_jobtype:'';
 					tt.jobcard_regiao = await gen[0].jobcard_regiao? gen[0].jobcard_regiao:'';
+					tt.jobcard_provincia = await gen[0].jobcard_provincia? gen[0].jobcard_provincia:'';
 					tt.jobcard_tecniconome = await gen[0].jobcard_tecniconome? gen[0].jobcard_tecniconome:'';
 					tt.data_ultimaactualizacaojobcard = await gen[0].data_ultimaactualizacaojobcard? gen[0].data_ultimaactualizacaojobcard:'';
 					tt.jobcard_credelecnr = await gen[0].jobcard_credelecinfo[0].jobcard_credelecnr?  gen[0].jobcard_credelecinfo[0].jobcard_credelecnr:'';
