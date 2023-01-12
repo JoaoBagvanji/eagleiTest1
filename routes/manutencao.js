@@ -1410,6 +1410,7 @@ router.get('/ttnumberhome', async function(req, res) {
 	var nome = userData.nome;
 	var countNew;
 	var countNewtotal;
+	var countEscalated=0;
 	var countInprogress;
 	var countInprogressTotal;
 	var countComplete;
@@ -1509,13 +1510,13 @@ router.get('/ttnumberhome', async function(req, res) {
 			}
 
 			if(userData.departamento_id=="611e45c98cd71c1f48cf45bc" || userData.departamento_id=="61532251699ee012d00db4e7"){
-				countEscalated = await jobcards.countDocuments({jobcard_jobtype:"Callout", $and:[{jobcard_provincia:userData.provincia_trabalho,},  {$or:[{$and:[{ttnumber_status:'New'}, {jobcard_escalationlevel:{$gt:0}}]}, {$and:[{$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]}, {jobcard_estadoactual:"On hold"}]}, {$and:[{"jobcard_prioritycomments.0":{$exists:true}}, {$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]} ]}  ]}   ]}, function(err, escalatedjobs){}).lean();
+				countEscalated = await jobcards.countDocuments({jobcard_jobtype:"Callout", $and:[ {$or:[{$and:[{ttnumber_status:'New'}, {jobcard_escalationlevel:{$gt:0}}]}, {$and:[{$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]}, {jobcard_estadoactual:"On hold"}]}, {$and:[{"jobcard_prioritycomments.0":{$exists:true}}, {$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]} ]}  ]}   ]}, function(err, escalatedjobs){}).lean();
 
 			}else if(userData.departamento_id=="611e45e68cd71c1f48cf45bd"){
-				countEscalated = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_escalationlevel:{$exists:true} , $and:[{$or:[{jobcard_escalationlevel:"1"}, {jobcard_escalationlevel:"2"}]}, {jobcard_provincia:userData.provincia_trabalho,}]}, function(err, escalatedjobs){}).lean();
+				countEscalated = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_escalationlevel:{$exists:true} , $and:[{$or:[{jobcard_escalationlevel:"1"}, {jobcard_escalationlevel:"2"}]}]}, function(err, escalatedjobs){}).lean();
 
 			}else if(userData.departamento_id=="61532293699ee012d00db4e8"){
-				countEscalated = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_escalationlevel:{$exists:true} , $and:[{$or:[{jobcard_escalationlevel:"1"}, {jobcard_escalationlevel:"2"}]}, {jobcard_provincia:userData.provincia_trabalho,}]}, function(err, escalatedjobs){}).lean();
+				countEscalated = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_escalationlevel:{$exists:true} , $and:[{$or:[{jobcard_escalationlevel:"1"}, {jobcard_escalationlevel:"2"}]}]}, function(err, escalatedjobs){}).lean();
 			}
 		break;
 
