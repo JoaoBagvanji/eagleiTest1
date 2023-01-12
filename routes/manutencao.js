@@ -18269,6 +18269,9 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.gerador_jobcardregion = jobcard.reportsmaintenance_region;		
 		}
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.gerador_jobcardprovincia = jobcard.reportsmaintenance_provincia;		
+		}
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != '' && jobcard.reportsmaintenance_department != 'Data Center' && jobcard.reportsmaintenance_department != 'Centro de Dados'){
 			queryobject.gerador_jobcarddepartment = jobcard.reportsmaintenance_department;	
 		}
@@ -18363,6 +18366,9 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.gerador_jobcardregion = jobcard.reportsmaintenance_region;		
 		}
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.gerador_jobcardprovincia = jobcard.reportsmaintenance_provincia;		
+		}
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != '' && jobcard.reportsmaintenance_department != 'Data Center' && jobcard.reportsmaintenance_department != 'Centro de Dados'){
 			queryobject.gerador_jobcarddepartment = jobcard.reportsmaintenance_department;	
 		}
@@ -18409,6 +18415,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 							dados[i].Generator_Type=y.gerador_gentype;
 							dados[i].Technician=y.gerador_jobcardmaintenanceofficer;
 							dados[i].Region=y.gerador_jobcardregion;
+							dados[i].Region=y.gerador_jobcardprovincia;
 							dados[i].Date=y.gerador_dataregisto;
 							dados[i].Previous_Refuel_Hours=y.gerador_previousrefuelhours;
 							dados[i].Current_Hours=y.gerador_actualhours;
@@ -18463,6 +18470,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 							dados[i].Generator_Type=y.gerador_gentype;
 							dados[i].Technician=y.gerador_jobcardmaintenanceofficer;
 							dados[i].Region=y.gerador_jobcardregion;
+							dados[i].Region=y.gerador_jobcardprovincia;
 							dados[i].Date=y.gerador_dataregisto;
 							dados[i].Previous_Refuel_Hours=y.gerador_previousrefuelhours;
 							dados[i].Current_Hours=y.gerador_actualhours;
@@ -18883,6 +18891,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			tt.gerador_dataregisto = await gen[0].gerador_dataregisto? gen[0].gerador_dataregisto :"";
 			tt.gerador_jobcardmaintenanceofficer = await gen[0].gerador_jobcardmaintenanceofficer? gen[0].gerador_jobcardmaintenanceofficer :"";
 			tt.gerador_jobcardregion = await gen[0].gerador_jobcardregion? gen[0].gerador_jobcardregion :"";
+			tt.gerador_jobcardprovincia = await gen[0].gerador_jobcardprovincia? gen[0].gerador_jobcardprovincia :"";
 			tt.gerador_previousrefuelhours = await gen[0].gerador_previousrefuelhours? gen[0].gerador_previousrefuelhours :"";
 			tt.gerador_actualhours = await gen[0].gerador_actualhours? gen[0].gerador_actualhours :"";
 			tt.gerador_totalrunhour = await gen[0].gerador_totalrunhour? gen[0].gerador_totalrunhour :"";
@@ -19411,6 +19420,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			tt.gerador_dataregisto = await gen[0].gerador_dataregisto? gen[0].gerador_dataregisto :"";
 			tt.gerador_jobcardmaintenanceofficer = await gen[0].gerador_jobcardmaintenanceofficer? gen[0].gerador_jobcardmaintenanceofficer :"";
 			tt.gerador_jobcardregion = await gen[0].gerador_jobcardregion? gen[0].gerador_jobcardregion :"";
+			tt.gerador_jobcardprovincia = await gen[0].gerador_jobcardprovincia? gen[0].gerador_jobcardprovincia :"";
 			tt.gerador_previousrefuelhours = await gen[0].gerador_previousrefuelhours? gen[0].gerador_previousrefuelhours :"";
 			tt.gerador_actualhours = await gen[0].gerador_actualhours? gen[0].gerador_actualhours :"";
 			tt.gerador_totalrunhour = await gen[0].gerador_totalrunhour? gen[0].gerador_totalrunhour :"";
@@ -19517,7 +19527,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 	router.post("/plannedmaintenancereports", async function(req, res){
 
-				var userData= req.session.usuario;
+		var userData= req.session.usuario;
 		var jobcard = req.body;
 		var nome = userData.nome;
 		var queryobject={};
@@ -19527,6 +19537,10 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.jobcard_regiao = jobcard.reportsmaintenance_region;	
+		}
+
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.jobcard_provincia = jobcard.reportsmaintenance_provincia;	
 		}
 
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != '' && userData.departamento_id!="611e45e68cd71c1f48cf45bd"){
@@ -20387,6 +20401,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			geradorhistObj.gerador_jobcardmaintenanceofficer = userData.nome;
 			geradorhistObj.gerador_jobcardmaintenanceofficerid = userData._id;
 			geradorhistObj.gerador_jobcardregion = procurajobcard.jobcard_regiao;
+			geradorhistObj.gerador_jobcardprovincia = procurajobcard.jobcard_provincia;
 			geradorhistObj.gerador_jobcarddepartment = procurajobcard.jobcard_departamento;
 			geradorhistObj.gerador_siteinforefid = sitenum;
 			geradorhistObj.gerador_siteinforef = procurasite.siteinfo_cod;
@@ -20541,6 +20556,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		geradorhistObj.gerador_jobcardmaintenanceofficer = userData.nome;
 		geradorhistObj.gerador_jobcardmaintenanceofficerid = userData._id;
 		geradorhistObj.gerador_jobcardregion = procurajobcard.jobcard_regiao;
+		geradorhistObj.gerador_jobcardprovincia = procurajobcard.jobcard_provincia;
 		geradorhistObj.gerador_jobcarddepartment = procurajobcard.jobcard_departamento;
 		geradorhistObj.gerador_siteinforefid = sitenum;
 		geradorhistObj.gerador_siteinforef = procurasite.siteinfo_cod;
@@ -20912,6 +20928,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		geradorhistObj.gerador_jobcardmaintenanceofficer = userData.nome;
 		geradorhistObj.gerador_jobcardmaintenanceofficerid = userData._id;
 		geradorhistObj.gerador_jobcardregion = procurajobcard.jobcard_regiao;
+		geradorhistObj.gerador_jobcardprovincia = procurajobcard.jobcard_provincia;
 		geradorhistObj.gerador_jobcarddepartment = procurajobcard.jobcard_departamento;
 		geradorhistObj.gerador_siteinforefid = sitenum;
 		geradorhistObj.gerador_siteinforef = procurasite.siteinfo_cod;
