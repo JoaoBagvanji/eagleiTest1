@@ -19185,6 +19185,10 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			queryobject.jobcard_regiao = jobcard.reportsmaintenance_region;	
 		}
 
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.jobcard_provincia = jobcard.reportsmaintenance_provincia;	
+		}
+
 		// if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != ''){
 		// 	queryobject.jobcard_departamento = jobcard.reportsmaintenance_department;	
 		// }
@@ -19442,6 +19446,10 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.jobcard_regiao = jobcard.reportsmaintenance_region;	
+		}
+
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.jobcard_provincia = jobcard.reportsmaintenance_provincia;	
 		}
 
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != ''){

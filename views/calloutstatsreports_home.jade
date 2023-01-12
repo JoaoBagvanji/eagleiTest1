@@ -37,6 +37,7 @@ block content
 								th Line Manager
 							th Call Center
 							th <span data-i18n="demo.manutencao_form.regiao"></span>
+							th <span data-i18n="demo.manutencao_form.provincia"></span>
 							th 
 
 					tbody(id="myTableUser1")
@@ -81,6 +82,7 @@ block content
 									td #{CalloutStatsHistory[index].jobcard_linemanager}
 								td #{CalloutStatsHistory[index].jobcard_loggedby}
 								td #{CalloutStatsHistory[index].jobcard_regiao}
+								td #{CalloutStatsHistory[index].jobcard_provincia}
 								td.center-align
 									a.tooltipped.pointer.info(style="margin-left: 25px", data-position="top", data-delay="10", href="/manutencao/detalhesJobcardCallOut/#{CalloutStatsHistory[index]._id}", data-tooltip="Details of maintenance") <i class="material-icons activarVerde">info</i>
 	block js
