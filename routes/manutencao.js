@@ -1410,6 +1410,7 @@ router.get('/ttnumberhome', async function(req, res) {
 	var nome = userData.nome;
 	var countNew;
 	var countNewtotal;
+	var countEscalated=0;
 	var countInprogress;
 	var countInprogressTotal;
 	var countComplete;

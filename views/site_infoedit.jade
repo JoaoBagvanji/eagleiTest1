@@ -3,7 +3,7 @@ block content
 	.row
 		div(class="fixed-action-btn horizontal fixed-add-bottom")
 				a.tooltipped.verde-policial-bg.activarAzul(data-position="left", data-delay="10", data-tooltip="Back", class="btn-floating btn-large waves-effect waves-light" href="/manutencao/siteinfohome") <i class=" activarAzul material-icons">reply</i>
-		form(id="formulario2", method="POST")
+		form(id="formulario2", method="POST" enctype="multipart/form-data")
 			ul(id="progressbar2" style="margin-bottom:0px; margin-top:-30px")
 				li.siteinfoIcon(class="active" style="user-select:none") <span class="hide-on-small-only"><span data-i18n="demo.site_info.sitedetails"></span></span><span class="hide-on-med-only"> <img class="hide-on-med-and-up" src="/img/siteinfo.png" style="width:20px">
 				li.siteinfoIcon(style="user-select:none") <span class="hide-on-small-only"><span data-i18n="demo.site_info.gerador"></span></span><span class="hide-on-med-only"> <img class="hide-on-med-and-up" src="/img/generator1.png" style="width:20px">
@@ -158,35 +158,18 @@ block content
 				h2(class="fs-title selmecAzul" style="margin-top:5px; margin-bottom:15px") <span data-i18n="demo.site_info.gerador"></span>
 				-if(Siteinfos[0].siteinfo_generatorArray.length == 0)
 					.row
-						.col.s2.hide-on-small-only
-							label(for="siteinfo_generator") <span data-i18n="demo.site_info.geradorinst"></span>
-						.col.s5.m3
-							input.bom(type="radio" id="siteinfo_generatoryes" name="siteinfo_generator" value="Yes")
-							label(for="siteinfo_generatoryes") <span data-i18n=demo.site_info.sim></span>
-						.col.s5.m3
-							input.bom(type="radio" id="siteinfo_generatorno" name="siteinfo_generator" value="No" checked)
-							label(for="siteinfo_generatorno") <span data-i18n=demo.site_info.nao></span>
-				-else
+							label <span>Nao tem gerador!</span>
+				-else			
 					.row
-						.col.s2.hide-on-small-only
-							label(for="siteinfo_generator") <span data-i18n="demo.site_info.geradorinst"></span>
-						.col.s5.m3
-							input.bom(type="radio" id="siteinfo_generatoryes" name="siteinfo_generator" value="Yes" checked)
-							label(for="siteinfo_generatoryes") <span data-i18n=demo.site_info.sim></span>
-						.col.s5.m3
-							input.bom(type="radio" id="siteinfo_generatorno" name="siteinfo_generator" value="No")
-							label(for="siteinfo_generatorno") <span data-i18n=demo.site_info.nao></span>
-				.row.mostrartabelaGeradores.hide
-					table#m.responsive-table.bordered.striped(style="margin-left:-46px")
-						thead
-							tr.selmecAzul
-								th <span class="hide-on-small-only"><span data-i18n=demo.site_info.generatortype></span></span><span class="hide-on-med-and-up"><span data-i18n=demo.site_info.generatortype1></span></span>
-								th <span class="hide-on-small-only"><span data-i18n="demo.site_info.modelno"></span></span><span class="hide-on-med-and-up"><span data-i18n=demo.site_info.modelno1></span></span>
-								th <span class="hide-on-small-only"><span data-i18n=demo.site_info.enginecapacity></span></span><span class="hide-on-med-and-up"><span data-i18n=demo.site_info.enginecapacity1></span></span>
-								th <span class="hide-on-small-only"><span data-i18n="demo.site_info.fuelconsumption"></span></span><span class="hide-on-med-and-up"><span data-i18n=demo.site_info.fuelconsumption1></span></span>
-								th
-						tbody#mostrarTabelaGenerator.mostrarTabelaGenerator
-							-if(Siteinfos[0].siteinfo_generatorArray.length != 0)
+						table.responsive-table.bordered.striped
+							thead
+								tr.selmecAzul
+									th <span class="hide-on-small-only"><span data-i18n=demo.site_info.generatortype></span></span><span class="hide-on-med-and-up"><span data-i18n=demo.site_info.generatortype1></span></span>
+									th <span class="hide-on-small-only"><span data-i18n="demo.site_info.modelno"></span></span><span class="hide-on-med-and-up"><span data-i18n=demo.site_info.modelno1></span></span>
+									th <span class="hide-on-small-only"><span data-i18n=demo.site_info.enginecapacity></span></span><span class="hide-on-med-and-up"><span data-i18n=demo.site_info.enginecapacity1></span></span>
+									th <span class="hide-on-small-only"><span data-i18n="demo.site_info.fuelconsumption"></span></span><span class="hide-on-med-and-up"><span data-i18n=demo.site_info.fuelconsumption1></span></span>
+									th
+							tbody
 								-for(var index = 0; index < Siteinfos[0].siteinfo_generatorArray.length; index++)
 									tr.highlight(style="font-family:;color:#12375c")
 										td #{Siteinfos[0].siteinfo_generatorArray[index].siteinfo_generatortype}
@@ -194,10 +177,31 @@ block content
 										td #{Siteinfos[0].siteinfo_generatorArray[index].siteinfo_generatorenginecapacity}
 										td #{Siteinfos[0].siteinfo_generatorArray[index].siteinfo_generatorfuelconsumption}
 										td
-											a(class="pointer info eliminar") <i class="material-icons left selmecAzul">delete_forever</i>
-											a(class="pointer info editar") <i class="material-icons left selmecAzul">edit</i>
+											a.tooltipped.pointer.mostrartabelaGeradores.mostrardetalhesGeradoresSiteInfo(style="margin-left: 25px", data-position="top", data-delay="10", data-user-new="#{Siteinfos[0]._id}", data-array-new="#{Siteinfos[0].siteinfo_generatorArray[index]._id}", data-tooltip="Edit Generator", dadosSiteInfo = "#{JSON.stringify(Siteinfos[0].siteinfo_generatorArray[index])}") <i class="material-icons selmecAzul">edit</i>
+											a.tooltipped.pointer.mostrardetalhesGeradoresSiteInfo(style="margin-left: 25px", data-position="top", data-delay="10", data-user-new="#{Siteinfos[0]._id}", data-array-new="#{Siteinfos[0].siteinfo_generatorArray[index]._id}", data-tooltip="Delete Generator", dadosSiteInfo = "#{JSON.stringify(Siteinfos[0].siteinfo_generatorArray[index])}") <i class="material-icons selmecAzul">delete_forever</i>
+										
+				row
+				//- 	table#m.responsive-table.bordered.striped(style="margin-left:-46px")
+				//- 		thead
+				//- 			tr.selmecAzul
+				//- 				th <span class="hide-on-small-only"><span data-i18n=demo.site_info.generatortype></span></span><span class="hide-on-med-and-up"><span data-i18n=demo.site_info.generatortype1></span></span>
+				//- 				th <span class="hide-on-small-only"><span data-i18n="demo.site_info.modelno"></span></span><span class="hide-on-med-and-up"><span data-i18n=demo.site_info.modelno1></span></span>
+				//- 				th <span class="hide-on-small-only"><span data-i18n=demo.site_info.enginecapacity></span></span><span class="hide-on-med-and-up"><span data-i18n=demo.site_info.enginecapacity1></span></span>
+				//- 				th <span class="hide-on-small-only"><span data-i18n="demo.site_info.fuelconsumption"></span></span><span class="hide-on-med-and-up"><span data-i18n=demo.site_info.fuelconsumption1></span></span>
+				//- 				th
+				//- 		tbody#mostrarTabelaGenerator.mostrarTabelaGenerator
+				//- 			-if(Siteinfos[0].siteinfo_generatorArray.length != 0)
+				//- 				-for(var index = 0; index < Siteinfos[0].siteinfo_generatorArray.length; index++)
+				//- 					tr.highlight(style="font-family:;color:#12375c")
+				//- 						td #{Siteinfos[0].siteinfo_generatorArray[index].siteinfo_generatortype}
+				//- 						td #{Siteinfos[0].siteinfo_generatorArray[index].siteinfo_generatormodelno}
+				//- 						td #{Siteinfos[0].siteinfo_generatorArray[index].siteinfo_generatorenginecapacity}
+				//- 						td #{Siteinfos[0].siteinfo_generatorArray[index].siteinfo_generatorfuelconsumption}
+				//- 						td
+				//- 							a(class="pointer info eliminar") <i class="material-icons left selmecAzul">delete_forever</i>
+				//- 							a(class="pointer info editar") <i class="material-icons left selmecAzul">edit</i>
 				//- input(type="button", name="previous", class="previous action-button hide-on-small-only", value="<< Prev")
-				a.mostrarSiteInfoGeneratorInfo.hide(class="waves-effect waves-light action-button" style="width:162px; font-size:15px") <span data-i18n="demo.site_info.addgenerator"></span>
+				a.mostrartabelaGeradores(class="waves-effect waves-light action-button" style="width:162px; font-size:15px") <span data-i18n="demo.site_info.addgenerator"></span>
 				//- input(type="button", name="previous", class="previous action-button hide-on-med-and-up", value="<< Prev")
 				//- input.carregarACSiteInfo(type="button", name="next", class="next action-button", value="Next >>")
 			fieldset(style="padding:25px")

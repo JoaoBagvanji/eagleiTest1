@@ -14689,7 +14689,38 @@ $('.captarinqueritoair').click(function(){
 		}
 	});
 
+	$('#mostrardetalhesGeradoresSiteInfo21').click(function(){
 
+		var referencia = $(this).attr("data-user-new");
+
+		var referenciaArray = $(this).attr("data-array-new");
+
+		 var detalhesSiteInfoGenerator = JSON.parse($(this).attr("dadosSiteInfo"));
+		 console.log("Cheguei");
+		 console.log(detalhesSiteInfoGenerator);
+
+		 $("#siteinfo_generatortype").val(detalhesSiteInfoGenerator.siteinfo_generatortype);
+
+			$("#siteinfo_generatoroutputkw").val(detalhesSiteInfoGenerator.siteinfo_generatoroutputkw);
+			$("#siteinfo_generatoroutputkw").siblings('label').addClass('active');
+
+			$("#siteinfo_generatormodelno").val(detalhesSiteInfoGenerator.siteinfo_generatormodelno);
+			$("#siteinfo_generatormodelno").siblings('label').addClass('active');
+
+			$("#siteinfo_generatorengineserialnumber").val(detalhesSiteInfoGenerator.siteinfo_generatorengineserialnumber);
+			$("#siteinfo_generatorengineserialnumber").siblings('label').addClass('active');
+
+			$("#siteinfo_generatorenginecapacity").val(detalhesSiteInfoGenerator.siteinfo_generatorenginecapacity);
+			$("#siteinfo_generatorstartertype").val(detalhesSiteInfoGenerator.siteinfo_generatorstartertype);
+
+			$("#siteinfo_generatorfuelconsumption").val(detalhesSiteInfoGenerator.siteinfo_generatorfuelconsumption);
+			$("#siteinfo_generatorfuelconsumption").siblings('label').addClass('active');
+
+			$('#siteinfogeneratorinfo_yes_btn_modal').addClass('hide');
+			$('#siteinfogeneratorinfo_update_btn_modal').addClass('hide');
+			$('#siteinfogeneratorinfo_modal').openModal({dismissible:false});
+
+	});
 	$('.mostrardetalhesGeradoresSiteInfo').click(function(){
 
 		var referencia = $(this).attr("data-user-new");
@@ -14697,6 +14728,8 @@ $('.captarinqueritoair').click(function(){
 		var referenciaArray = $(this).attr("data-array-new");
 
 		 var detalhesSiteInfoGenerator = JSON.parse($(this).attr("dadosSiteInfo"));
+		 console.log("Cheguei");
+		 console.log(detalhesSiteInfoGenerator);
 
 		 $("#siteinfo_generatortype").val(detalhesSiteInfoGenerator.siteinfo_generatortype);
 
