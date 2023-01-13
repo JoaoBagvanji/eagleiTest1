@@ -31,6 +31,7 @@ block content
 							th <span data-i18n="demo.manutencao_form.technician"></span>
 							th Manager
 							th <span data-i18n="demo.site_info.regiaoselmec"></span>
+							th <span data-i18n="demo.site_info.provincia"></span>
 							th 
 					tbody(id="myTableUser1")
 						-for(var index = 0; index < SiteInformation.length; index++)
@@ -42,6 +43,7 @@ block content
 								td #{SiteInformation[index].tecnico}
 								td #{SiteInformation[index].mananger}
 								td #{SiteInformation[index].regiao}
+								td #{SiteInformation[index].provincia}
 								td.center-align
 									a.tooltipped.pointer.info(style="margin-left: 25px", data-position="top", data-delay="10", href="/manutencao/detalhesJobcardCallOut/#{SiteInformation[index]._id}", data-tooltip="Details of planned maintenance") <i class="material-icons activarVerde">info</i>												
 	block js

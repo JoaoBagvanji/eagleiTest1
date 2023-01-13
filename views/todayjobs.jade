@@ -30,6 +30,7 @@ block content
 							th Data Execucao
 							th Técnico
 							th Região
+							th Província
 							th Job Type
 							th Status
 							th Spare Usado
@@ -48,6 +49,7 @@ block content
 								td #{AllJobcardsHistory[index].data_ultimaactualizacaojobcard.getDate()+'/'+(AllJobcardsHistory[index].data_ultimaactualizacaojobcard.getMonth()+1) +'/'+AllJobcardsHistory[index].data_ultimaactualizacaojobcard.getFullYear()}
 								td #{AllJobcardsHistory[index].jobcard_tecniconome}
 								td #{AllJobcardsHistory[index].jobcard_regiao}
+								td #{AllJobcardsHistory[index].jobcard_provincia}
 								-if((AllJobcardsHistory[index].jobcard_jobtype != undefined) && (AllJobcardsHistory[index].jobcard_jobtype != ""))
 									td #{AllJobcardsHistory[index].jobcard_jobtype}
 								-else
