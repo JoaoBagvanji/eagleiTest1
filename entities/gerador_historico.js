@@ -11,6 +11,7 @@ var gerador_historico= new mongoose.Schema({
 	gerador_jobcardmaintenanceofficer:String, //nome do tecnico
 	gerador_jobcardmaintenanceofficerid:String, //id do tecnico
 	gerador_jobcardregion:String,
+	gerador_jobcardprovincia:String,
 	gerador_jobcarddepartment:String,
 	gerador_siteinforefid:String, //id do siteinfo
 	gerador_siteinforef:String, //ref comserv siteinfo

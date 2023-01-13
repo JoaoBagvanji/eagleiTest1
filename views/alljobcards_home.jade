@@ -32,6 +32,7 @@ block content
 							th Técnico
 							th Job Type
 							th Região
+							th Província
 							//- th Amount Add.
 							th Compliance
 							th Spare Usado
@@ -52,6 +53,7 @@ block content
 								td #{AllJobcardsHistory[index].jobcard_tecniconome}
 								td #{AllJobcardsHistory[index].jobcard_jobtype}
 								td #{AllJobcardsHistory[index].jobcard_regiao}
+								td #{AllJobcardsHistory[index].jobcard_provincia}
 								//- td #{AllJobcardsHistory[index].jobcard_amountadded} AMOUNT ADDED td #{AllJobcardsHistory[index].jobcard_planneddate}
 								-if((AllJobcardsHistory[index].gerador_workstatus != undefined) && (AllJobcardsHistory[index].gerador_workstatus != ""))
 									td #{AllJobcardsHistory[index].gerador_workstatus}

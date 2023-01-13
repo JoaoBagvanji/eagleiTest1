@@ -14,6 +14,7 @@ var siteinfoSchema=new mongoose.Schema({
 	siteinfo_maintoffid:String,
 	siteinfo_techcontactnum:String,
 	siteinfo_regiao:String,
+	siteinfo_provincia:String,
 	siteinfo_area:String,
 	siteinfo_regiaoselmec:String,
 	siteinfo_gps:[{siteinfo_gpslatitude:String, siteinfo_gpslongitude:String}],

@@ -32,6 +32,7 @@ block content
 							th <span data-i18n="demo.manutencao_form.technician"></span>
 							th <span data-i18n="demo.manutencao_form.department"></span>
 							th <span data-i18n="demo.manutencao_form.region"></span>
+							th <span data-i18n="demo.manutencao_form.provincia"></span>
 							th <span data-i18n="demo.manutencao_form.estadotrabalho"></span>
 							th
 					tbody(id="myTableUser1")
@@ -45,6 +46,7 @@ block content
 								td #{PlannedMaintenanceHistory[index].jobcard_tecniconome}
 								td #{PlannedMaintenanceHistory[index].jobcard_departamento}
 								td #{PlannedMaintenanceHistory[index].jobcard_regiao}
+								td #{PlannedMaintenanceHistory[index].jobcard_provincia}
 								td #{PlannedMaintenanceHistory[index].jobcard_estadoactual}
 								td
 									a.tooltipped.pointer.info(style="margin-left: 25px", data-position="top", data-delay="10", href="/manutencao/detalhesJobcardCallOut/#{PlannedMaintenanceHistory[index]._id}", data-tooltip="Details of planned maintenance") <i class="material-icons activarVerde">info</i>

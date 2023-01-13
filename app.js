@@ -137,7 +137,11 @@ app.use(function(err, req, res, next) {
 
 
 app.listen(2700, function(){
+
   console.log("servidor correndo na porta 2900")
+
+  console.log("servidor correndo na porta 2700")
+
 })
 
 
