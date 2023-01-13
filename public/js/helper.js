@@ -3786,7 +3786,8 @@ var controle = $("input[name='travelinfo_proposito']:checked").val();
 
 	
 		if($("#jobcard_clienteid").val()=="5e71cba0ccff6e17448e12d4"){
-			var reasonsJobcardArray = ["AC Mains Failure", "Rectifier System", "Rectifier Module", "Generator Low Fuel","Outro", "Generator Abnormal", "Generator Running", "High Temperature", "Battery Low", "Door Switch Intruder", "Motion Detector", "FAN Stalled", "Smoke Detector", "Site Down", "RRU replacement", "RRU fiber", "Fly leads", "UBBP board", "WBBP board", "BBU board", "RTN905 RTN950", "RTN controller board", "RTN Fan unit", "OSN fan unit", "ODU replacement", "Patch Cords", "Outdoor cabinet cooling system"];
+			var reasonsJobcardArray = ["Falha de energia", "Temperatura Alta", "Bateria com carga baixa", "Gerador em anomalia", "Nivel baixo de combustivel", "Falha do Sistema de Retificador", "Transmissao", "Radio", "Gerador em funcionamento", "Sistema de Incendio", "Sensor de movimento", "Outro"];
+			// var reasonsJobcardArray1 = ["AC Mains Failure", "Rectifier System", "Rectifier Module", "Generator Low Fuel","Outro", "Generator Abnormal", "Generator Running", "High Temperature", "Battery Low", "Door Switch Intruder", "Motion Detector", "FAN Stalled", "Smoke Detector", "Site Down", "RRU replacement", "RRU fiber", "Fly leads", "UBBP board", "WBBP board", "BBU board", "RTN905 RTN950", "RTN controller board", "RTN Fan unit", "OSN fan unit", "ODU replacement", "Patch Cords", "Outdoor cabinet cooling system"];
 			$(".jobcard_jobinfoselect").removeClass('hide');
 			$(".jobcard_jobinfoinput").addClass('hide');
 
@@ -33071,7 +33072,7 @@ var demoJson = {
 		},
 		"provincia_adm":{
 				"en":"Province",
-				"pt":"Provincia"
+				"pt":"Província"
 		},
 		"viatura_adm":{
 				"en":"Vehicle",
@@ -33107,12 +33108,16 @@ var demoJson = {
 	},
 	"Provincia":{
 			"en":"Province",
-			"pt":"Provincia"
+			"pt":"Província"
 	},
 	"regiao":{
 			"en":"Region",
 			"pt":"Regiao"
-	}
+	},
+	"provincia":{
+		"pt": "Província",
+		"en": "Province"
+	},
 },
 
 "Armazem_home":{
@@ -33126,12 +33131,16 @@ var demoJson = {
 	},
 	"provincia":{
 			"en":"Province",
-			"pt":"Provincia"
+			"pt":"Província"
 	},
 	"regiao":{
 			"en":"Region",
 			"pt":"Regiao"
-	}
+	},
+	"provincia":{
+		"pt": "Província",
+		"en": "Province"
+	},
 },
 
 
@@ -33142,11 +33151,15 @@ var demoJson = {
 	},
 	"Provincia":{
 			"en":"Province",
-			"pt":"Provincia"
+			"pt":"Província"
 	},
 	"regiao":{
 			"en":"Region",
 			"pt":"Regiao"
+	},
+	"provincia":{
+		"pt": "Província",
+		"en": "Province"
 	},
 	"titulo1":{
 			"en":"Warehouse registration",
@@ -33672,7 +33685,7 @@ var demoJson = {
 					},
 
 					"provincia": {
-							"pt": "Provincia",
+							"pt": "Província",
 							"en": "Province"
 					},
 
@@ -33974,11 +33987,12 @@ var demoJson = {
 							"pt": "Detalhes de Energia",
 							"en": "Energy Details"
 					},
+					
 
 						"previohour": {
 						"pt": "Horas Anteriores",
 						"en": "Previous Refuel Hours"
-				},
+					},
 
 							"Litros": {
 							"pt": "Litros Abastecidos",
@@ -34205,6 +34219,11 @@ var demoJson = {
 					"region":{
 						"pt": "Região",
 						"en": "Region"
+					},
+
+					"province":{
+						"pt": "Província",
+						"en": "Province"
 					},
 
 					"status":{
@@ -34795,6 +34814,10 @@ var demoJson = {
 							"pt": "Região",
 							"en": "Region"
 					},
+					"provincia":{
+						"pt": "Província",
+						"en": "Province"
+					},
 
 					"jobtype": {
 							"pt": "Tipo de trabalho",
@@ -35336,6 +35359,10 @@ var demoJson = {
 					"regiao": {
 							"pt": "Região",
 							"en": "Region"
+					},
+					"provincia":{
+						"pt": "Província",
+						"en": "Province"
 					},
 
 					"area": {
@@ -37409,6 +37436,10 @@ var demoJson = {
 							"en": "Region",
 							"pt": "Região"
 					},
+					"provincia":{
+						"pt": "Província",
+						"en": "Province"
+					},
 					"departamento": {
 							"en": "Department",
 							"pt": "Departamento"
@@ -37586,6 +37617,10 @@ var demoJson = {
 					"regiao": {
 							"pt": "Região",
 							"en": "Region"
+					},
+					"provincia":{
+						"pt": "Província",
+						"en": "Province"
 					},
 
 					"sitedetails": {

@@ -48,6 +48,7 @@ var jobcardSchema=new mongoose.Schema({
 	jobcard_clientetelefone:String,
 	jobcard_controlador:[Number],
 	jobcard_razaoreprovar:String,
+	jobcard_provincia:String,
 	jobcard_controladorintervenientes:[String],
 	jobcard_travelinfo_proposito:String,
 	jobcard_planneddate:String,
