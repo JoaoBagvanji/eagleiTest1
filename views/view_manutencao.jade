@@ -51,6 +51,7 @@ block content
 							th <span data-i18n="demo.manutencao_form.dataregistro"></span>
 							th <span data-i18n="demo.manutencao_form.lastupdate"></span>
 							th <span data-i18n="demo.manutencao_form.region"></span>
+							th <span data-i18n="demo.manutencao_form.provincia"></span>
 							th Criado Por
 							th Estado
 							th <span data-i18n="demo.manutencao_form.responsetime"></span>
@@ -97,6 +98,7 @@ block content
 										-var seconds = Jobcards[index].data_ultimaactualizacaojobcard.getSeconds()
 									td #{day}/#{month}/#{year}, #{hours}:#{minutes}:#{seconds}
 								td #{Jobcards[index].jobcard_regiao}
+								td #{Jobcards[index].jobcard_provincia}
 								td #{Jobcards[index].jobcard_loggedby}
 								td #{Jobcards[index].jobcard_estadoactual}
 								if ((Jobcards[index].jobcard_responsetime) == null)

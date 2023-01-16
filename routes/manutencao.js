@@ -7950,8 +7950,8 @@ router.get('/ttnumberhome/new/previouspage/:contador/:totalnr',async function(re
 		break;
 	
 		case 3:
-			data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_regiao:userData.regiao, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"} }, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).skip(contador).limit(50).lean();
-			dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New" , jobcard_regiao:userData.regiao, jobcard_departamento:userDept, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"}}, function(err, dataJobcard){}).exec();
+			data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_regiao:userData.regiao, jobcard_provincia:userData.provincia_trabalho, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"} }, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).skip(contador).limit(50).lean();
+			dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New" , jobcard_regiao:userData.regiao, jobcard_provincia:userData.provincia_trabalho ,jobcard_departamento:userDept, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"}}, function(err, dataJobcard){}).exec();
 			dataProjects = await jobcardprojects.find({ttnumber_status:"In Progress"}, {jobcard_sitedeparturedate:1, jobcard_tecniconome:1, ttnumber_status:1, jobcard_wait:1}, function(err, dataProjects){}).lean();
 			dataJobcaaards = await jobcards.find({ttnumber_status:"In Progress"}, {jobcard_sitedeparturedate:1, jobcard_tecniconome:1, ttnumber_status:1, jobcard_wait:1}, function(err, dataJobcaaards){}).lean();
 
@@ -8160,8 +8160,8 @@ router.get('/ttnumberhome/new/nextpage/:contador/:totalnr',async function(req, r
 		break;
 	
 		case 3:
-			data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_regiao:userData.regiao, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"} }, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).skip(contador).limit(50).lean();
-			dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New" , jobcard_regiao:userData.regiao, jobcard_departamento:userDept, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"}}, function(err, dataJobcard){}).exec();
+			data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_regiao:userData.regiao,jobcard_provincia:userData.provincia_trabalho, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"} }, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).skip(contador).limit(50).lean();
+			dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New" , jobcard_regiao:userData.regiao,jobcard_provincia:userData.provincia_trabalho, jobcard_departamento:userDept, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"}}, function(err, dataJobcard){}).exec();
 			dataProjects = await jobcardprojects.find({ttnumber_status:"In Progress"}, {jobcard_sitedeparturedate:1, jobcard_tecniconome:1, ttnumber_status:1, jobcard_wait:1}, function(err, dataProjects){}).lean();
 			dataJobcaaards = await jobcards.find({ttnumber_status:"In Progress"}, {jobcard_sitedeparturedate:1, jobcard_tecniconome:1, ttnumber_status:1, jobcard_wait:1}, function(err, dataJobcaaards){}).lean();
 
@@ -8368,8 +8368,8 @@ router.get('/ttnumberhome/new', async function(req, res) {
 			break;
 		
 			case 3:
-				data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_regiao:userData.regiao, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"} }, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).limit(50).lean();
-				dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New" , jobcard_regiao:userData.regiao, jobcard_departamento:userDept, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"}}, function(err, dataJobcard){}).exec();
+				data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_regiao:userData.regiao,jobcard_provincia:userData.provincia_trabalho, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"} }, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).limit(50).lean();
+				dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New" , jobcard_regiao:userData.regiao,jobcard_provincia:userData.provincia_trabalho, jobcard_departamento:userDept, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"}}, function(err, dataJobcard){}).exec();
 				dataProjects = await jobcardprojects.find({ttnumber_status:"In Progress"}, {jobcard_sitedeparturedate:1, jobcard_tecniconome:1, ttnumber_status:1, jobcard_wait:1}, function(err, dataProjects){}).lean();
 				dataJobcaaards = await jobcards.find({ttnumber_status:"In Progress"}, {jobcard_sitedeparturedate:1, jobcard_tecniconome:1, ttnumber_status:1, jobcard_wait:1}, function(err, dataJobcaaards){}).lean();
 						
