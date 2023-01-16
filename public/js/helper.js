@@ -14689,7 +14689,7 @@ $('.captarinqueritoair').click(function(){
 		}
 	});
 
-	$('#mostrardetalhesGeradoresSiteInfo21').click(function(){
+	$('.editardetalhesGeradoresSiteInfo').click(function(){
 
 		var referencia = $(this).attr("data-user-new");
 
@@ -14717,10 +14717,11 @@ $('.captarinqueritoair').click(function(){
 			$("#siteinfo_generatorfuelconsumption").siblings('label').addClass('active');
 
 			$('#siteinfogeneratorinfo_yes_btn_modal').addClass('hide');
-			$('#siteinfogeneratorinfo_update_btn_modal').addClass('hide');
+			$('#siteinfogeneratorinfo_update_btn_modal').siblings('label').addClass('active');
 			$('#siteinfogeneratorinfo_modal').openModal({dismissible:false});
 
 	});
+
 	$('.mostrardetalhesGeradoresSiteInfo').click(function(){
 
 		var referencia = $(this).attr("data-user-new");
