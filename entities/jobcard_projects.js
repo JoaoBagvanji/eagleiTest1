@@ -15,6 +15,7 @@ var jobcardprojectSchema=new mongoose.Schema({
 	ttnumber_status:String,
 	jobcard_departamento:String,
 	jobcard_regiao:String,
+	jobcard_provincia:String,
 	jobcard_jobtype:String,
 	jobcard_reportnmcoperator:String,
 	jobcard_jobinfo:String,
