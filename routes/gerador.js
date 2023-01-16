@@ -2376,10 +2376,31 @@ router.get("/remove/:id", function(req, res) {
         if (err)
             console.log("ocorreu um erro ao tentar apagar os dados!");
         else {
-            console.log("inspeção Removido com sucesso!!");
+            console.log("inspeção Removida com sucesso!!");
             res.redirect("/gerador")
         }
     })
+})
+
+router.get("/geradordetele/:id", async(req, res)=>{
+	var userData=await req.session.usuario;
+	
+
+	if(userData.nivel_acesso=="admin")
+		{
+
+			var ger=await gerador.find({}).lean();
+			await sisadmin_db.updateOne({_id:ger[0]._id, gerador:{$elemMatch:{_id:req.params.id}} },{$set:{"gerador.$.status":"anactivo"}})
+			
+			var userData=await req.session.usuario;
+			var geradores = await gerador.find({});
+
+		res.render("site_infoedit", {DataU:userData, Geradores: geradores, title:"Eaglei"})
+		
+
+		}
+	else
+		res.redirect("/inicio");
 })
 
 function getGGerador(body) {

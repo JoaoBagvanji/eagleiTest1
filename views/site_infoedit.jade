@@ -158,7 +158,7 @@ block content
 				h2(class="fs-title selmecAzul" style="margin-top:5px; margin-bottom:15px") <span data-i18n="demo.site_info.gerador"></span>
 				-if(Siteinfos[0].siteinfo_generatorArray.length == 0)
 					.row
-							label <span>Nao tem gerador!</span>
+							h5(class="fs-title selmecAzul") <span>Sem gerador instalado</span>
 				-else			
 					.row
 						table.responsive-table.bordered.striped
@@ -177,9 +177,10 @@ block content
 										td #{Siteinfos[0].siteinfo_generatorArray[index].siteinfo_generatorenginecapacity}
 										td #{Siteinfos[0].siteinfo_generatorArray[index].siteinfo_generatorfuelconsumption}
 										td
-											a.tooltipped.pointer.mostrartabelaGeradores.mostrardetalhesGeradoresSiteInfo(style="margin-left: 25px", data-position="top", data-delay="10", data-user-new="#{Siteinfos[0]._id}", data-array-new="#{Siteinfos[0].siteinfo_generatorArray[index]._id}", data-tooltip="Edit Generator", dadosSiteInfo = "#{JSON.stringify(Siteinfos[0].siteinfo_generatorArray[index])}") <i class="material-icons selmecAzul">edit</i>
-											a.tooltipped.pointer.mostrardetalhesGeradoresSiteInfo(style="margin-left: 25px", data-position="top", data-delay="10", data-user-new="#{Siteinfos[0]._id}", data-array-new="#{Siteinfos[0].siteinfo_generatorArray[index]._id}", data-tooltip="Delete Generator", dadosSiteInfo = "#{JSON.stringify(Siteinfos[0].siteinfo_generatorArray[index])}") <i class="material-icons selmecAzul">delete_forever</i>
-										
+											a.tooltipped.pointer.editardetalhesGeradoresSiteInfo(style="margin-left: 25px", data-position="top", data-delay="10", data-user-new="#{Siteinfos[0]._id}", data-array-new="#{Siteinfos[0].siteinfo_generatorArray[index]._id}", data-tooltip="Edit Generator", dadosSiteInfo = "#{JSON.stringify(Siteinfos[0].siteinfo_generatorArray[index])}") <i class="material-icons selmecAzul">edit</i>
+											a.tooltipped.pointer(style="margin-left: 25px", data-position="top", data-delay="10", data-user-new="#{Siteinfos[0]._id}", data-array-new="#{Siteinfos[0].siteinfo_generatorArray[index]._id}", data-tooltip="Delete Generator", href="/geradordelete/#{Siteinfos[0].siteinfo_generatorArray[index]._id}") <i class="material-icons selmecAzul">delete_forever</i>
+											//- a.tooltipped.pointer.mostrardetalhesGeradoresSiteInfo(style="margin-left: 25px", data-position="top", data-delay="10",  data-user-new="#{Siteinfos[0]._id}", data-tooltip="delete" #{Siteinfos[0].siteinfo_generatorArray[index].siteinfo_generatortype}", href="/geradordelete/#{Siteinfos[0].siteinfo_generatorArray[index]._id}") <i class="material-icons ">delete</i>
+																																																		
 				row
 				//- 	table#m.responsive-table.bordered.striped(style="margin-left:-46px")
 				//- 		thead
@@ -201,7 +202,7 @@ block content
 				//- 							a(class="pointer info eliminar") <i class="material-icons left selmecAzul">delete_forever</i>
 				//- 							a(class="pointer info editar") <i class="material-icons left selmecAzul">edit</i>
 				//- input(type="button", name="previous", class="previous action-button hide-on-small-only", value="<< Prev")
-				a.mostrartabelaGeradores(class="waves-effect waves-light action-button" style="width:162px; font-size:15px") <span data-i18n="demo.site_info.addgenerator"></span>
+				a(class="waves-effect waves-light action-button" style="width:162px; font-size:15px") <span data-i18n="demo.site_info.addgenerator"></span>
 				//- input(type="button", name="previous", class="previous action-button hide-on-med-and-up", value="<< Prev")
 				//- input.carregarACSiteInfo(type="button", name="next", class="next action-button", value="Next >>")
 			fieldset(style="padding:25px")
