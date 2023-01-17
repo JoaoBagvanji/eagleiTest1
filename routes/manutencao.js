@@ -8482,6 +8482,7 @@ router.get('/ttnumberhome/new', async function(req, res) {
 	}
 });
 
+
 router.get('/ttnumberhome/escalated', async function(req, res) {
 	// console.log(req.session.usuario);
 	var userData=req.session.usuario;
@@ -8553,7 +8554,7 @@ router.get('/ttnumberhome/escalated', async function(req, res) {
 		break;
 
 		case 5: 
-			data = await jobcards.find({jobcard_jobtype:"Callout", jobcard_clientenome: "Vm,Sa", $or:[{$and:[{ttnumber_status:'New'}, {jobcard_escalationlevel:{$gt:0}}]}, {$and:[{$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]}, {jobcard_estadoactual:"On hold"}]}, {$and:[{"jobcard_prioritycomments.0":{$exists:true}}, {$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]} ]}  ]}, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).limit(200).lean();
+			data = await jobcards.find({jobcard_jobtype:"Callout", jobcard_clientenome: "Vm,Sa", $or:[{$and:[{ttnumber_status:'New'}, {jobcard_escalationleel:{$gt:0}}]}, {$and:[{$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]}, {jobcard_estadoactual:"On hold"}]}, {$and:[{"jobcard_prioritycomments.0":{$exists:true}}, {$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]} ]}  ]}, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).limit(200).lean();
 			dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", jobcard_clientenome: "Vm,Sa", $or:[{$and:[{ttnumber_status:'New'}, {jobcard_escalationlevel:{$gt:0}}]}, {$and:[{$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]}, {jobcard_estadoactual:"On hold"}]}, {$and:[{"jobcard_prioritycomments.0":{$exists:true}}, {$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]} ]}  ]}, function(err, dataJobcard){}).exec();
 
 			var total = dataJobcard;
