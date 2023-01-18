@@ -11818,27 +11818,25 @@ router.get("/detalhesDevolverJobcard/:id",  function(req, res){
 });
 
 
-router.get("/detalhesAccaoPrioridadeProject/:id",  function(req, res){
+router.get("/detalhesAccaoPrioridadeProject/:id", async function(req, res){
 	var userData= req.session.usuario;
 	console.log('traa')
 	
-	jobcardprojects.find({_id:req.params.id}, {_id:1, ttnumber_status:1}, function(err, data){
-		console.log(data)
+	var data = await  jobcardprojects.find({_id:req.params.id}, {_id:1, ttnumber_status:1}).lean();
+	if(data.length == 0)
+		var data = await hvac_projects.find({_id:req.params.id}, {_id:1, ttnumber_status:1}).lean();
+
+	console.log(data)
+	
+	model.find({$or:[{nome_supervisor:userData.nome},{regiao_id:userData.regiao_id}]}, {nome:1}, function(err, dataUsuarios){
 		if(err){
 			console.log("ocorreu um erro ao tentar aceder os dados")
 		}
 		else{
-			model.find({$or:[{nome_supervisor:userData.nome},{regiao_id:userData.regiao_id}]}, {nome:1}, function(err, dataUsuarios){
-				if(err){
-					console.log("ocorreu um erro ao tentar aceder os dados")
-				}
-				else{
-					console.log(data)
-					res.render("jobcard_accaoPrioridade_projects", {DataU:userData, Usuarios:dataUsuarios, Projects:data, title: 'EAGLEI'});
-				}
-			}).sort({nome:1}).lean();
+			console.log(data)
+			res.render("jobcard_accaoPrioridade_projects", {DataU:userData, Usuarios:dataUsuarios, Projects:data, title: 'EAGLEI'});
 		}
-	}).lean();
+	}).sort({nome:1}).lean();	
 });
 
 
@@ -24864,15 +24862,16 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		var todayhours = new Date();
 		var todaytime = todayhours.getHours() + ":" + todayhours.getMinutes();
 
-		console.log('Tra2')
-		var procurajobcard = await jobcardprojects.findOne({_id:jobcard.jobcard_id}, function(err, data){
-			if(err){
-				console.log(err);
-			}else{
-				console.log("Find Jobcard");
-			}
-		});
 
+		var procurajobcard = await jobcardprojects.findOne({_id:jobcard.jobcard_id}).lean();
+		if(procurajobcard== null)
+			var procurajobcard = await hvac_projects.findOne({_id:jobcard.jobcard_id}).lean();
+		if(procurajobcard== null)
+			var procurajobcard = await energia_projects.findOne({_id:jobcard.jobcard_id}).lean();
+
+
+			console.log("CONSOLE LOG HERE");
+			console.log(procurajobcard); 
 		//id do tecnico antigo
 		var jobcard_tecniconomeantigo = procurajobcard.jobcard_tecniconome;
 		var jobcard_tecnicoidantigo = procurajobcard.jobcard_tecnicoid;
@@ -24954,7 +24953,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			
 
 
-		jobcardprojects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual, jobcard_holdreason:jobcard.jobcard_holdreason,jobcard_holdaction:jobcard.jobcard_holdaction,jobcard_controlador:jobcard.jobcard_controlador, jobcard_controladorintervenientes:jobcard.jobcard_controladorintervenientes, ttnumber_status:jobcard.ttnumber_status, jobcard_tecnicoid:jobcard.jobcard_tecnicoid1, jobcard_tecniconome:jobcard.jobcard_tecniconome, jobcard_regiao:jobcard.jobcard_regiao, jobcard_cell:jobcard.jobcard_cell, jobcard_linemanager:jobcard.jobcard_linemanager, jobcard_linemanagerid:jobcard.jobcard_linemanagerid, jobcard_linemanagercell:jobcard.jobcard_linemanagercell, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}}, function(err, data1){
+		var tt = await jobcardprojects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual, jobcard_holdreason:jobcard.jobcard_holdreason,jobcard_holdaction:jobcard.jobcard_holdaction,jobcard_controlador:jobcard.jobcard_controlador, jobcard_controladorintervenientes:jobcard.jobcard_controladorintervenientes, ttnumber_status:jobcard.ttnumber_status, jobcard_tecnicoid:jobcard.jobcard_tecnicoid1, jobcard_tecniconome:jobcard.jobcard_tecniconome, jobcard_regiao:jobcard.jobcard_regiao, jobcard_cell:jobcard.jobcard_cell, jobcard_linemanager:jobcard.jobcard_linemanager, jobcard_linemanagerid:jobcard.jobcard_linemanagerid, jobcard_linemanagercell:jobcard.jobcard_linemanagercell, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}}, function(err, data1){
 			if(err){
 				console.log("ocorreu um erro ao tentar aceder os dados" + err)
 			}
@@ -24964,7 +24963,28 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			}
 
 		});
-		
+		if(tt.n==0)
+			var tt = await hvac_projects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual, jobcard_holdreason:jobcard.jobcard_holdreason,jobcard_holdaction:jobcard.jobcard_holdaction,jobcard_controlador:jobcard.jobcard_controlador, jobcard_controladorintervenientes:jobcard.jobcard_controladorintervenientes, ttnumber_status:jobcard.ttnumber_status, jobcard_tecnicoid:jobcard.jobcard_tecnicoid1, jobcard_tecniconome:jobcard.jobcard_tecniconome, jobcard_regiao:jobcard.jobcard_regiao, jobcard_cell:jobcard.jobcard_cell, jobcard_linemanager:jobcard.jobcard_linemanager, jobcard_linemanagerid:jobcard.jobcard_linemanagerid, jobcard_linemanagercell:jobcard.jobcard_linemanagercell, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}}, function(err, data1){
+			if(err){
+				console.log("ocorreu um erro ao tentar aceder os dados" + err)
+			}
+			else{
+
+				console.log("Jobcard update");
+			}
+
+			});
+		if(tt.n==0)
+			var tt = await energia_projects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual, jobcard_holdreason:jobcard.jobcard_holdreason,jobcard_holdaction:jobcard.jobcard_holdaction,jobcard_controlador:jobcard.jobcard_controlador, jobcard_controladorintervenientes:jobcard.jobcard_controladorintervenientes, ttnumber_status:jobcard.ttnumber_status, jobcard_tecnicoid:jobcard.jobcard_tecnicoid1, jobcard_tecniconome:jobcard.jobcard_tecniconome, jobcard_regiao:jobcard.jobcard_regiao, jobcard_cell:jobcard.jobcard_cell, jobcard_linemanager:jobcard.jobcard_linemanager, jobcard_linemanagerid:jobcard.jobcard_linemanagerid, jobcard_linemanagercell:jobcard.jobcard_linemanagercell, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}}, function(err, data1){
+			if(err){
+				console.log("ocorreu um erro ao tentar aceder os dados" + err)
+			}
+			else{
+
+				console.log("Jobcard update");
+			}
+
+			});
 
 	});
 
@@ -25138,21 +25158,17 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		var todayhours = new Date();
 		var todaytime = todayhours.getHours() + ":" + todayhours.getMinutes();
-		console.log('tra3')
-		console.log(jobcard)
 
-		var procurajobcard = await jobcardprojects.findOne({_id:jobcard.jobcard_id}, {jobcard_tecnicoid:1,jobcard_controladorintervenientes:1, }, function(err, data){
-			if(err){
-				console.log(err);
-			}else{
-				console.log("Find Jobcard");
-			}
-		}).lean();
-
+		var procurajobcard = await jobcardprojects.findOne({_id:jobcard.jobcard_id}, {jobcard_tecnicoid:1,jobcard_controladorintervenientes:1, }).lean();
+		if(procurajobcard== null)
+			var procurajobcard = await hvac_projects.findOne({_id:jobcard.jobcard_id}, {jobcard_tecnicoid:1,jobcard_controladorintervenientes:1,}).lean();
+		if(procurajobcard== null)
+			var procurajobcard = await energia_projects.findOne({_id:jobcard.jobcard_id}, {jobcard_tecnicoid:1,jobcard_controladorintervenientes:1,}).lean();
+		
 
 		// jobcard.jobcard_controlador = [1];
 		
-		jobcard.ttnumber_status = "In Progress";
+		jobcard.ttnumber_status = "New";
 		jobcard.jobcard_estadoactual = "On hold";
 		jobcard.jobcard_wait = "sim";
 		jobcard.geolocationJobcardInfo = [];
@@ -25164,24 +25180,13 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		audittrailObject.jobcard_audittrailaction = "Put the project on hold. reason: " + jobcard.jobcard_holdreason;
 		audittrailObject.jobcard_audittraildate = dia + "/" + mes + "/" + ano + "  " + todaytime;
 		
+	console.log("CONSOLE LOG HERE");
+	console.log(procurajobcard); 
 
-		var procuratecnico = await model.findOne({_id:procurajobcard.jobcard_tecnicoid},{email:1, idioma:1}, function(err,dataUser){
-			if(err){
-				console.log("ocorreu um erro ao tentar aceder os dados")
-			}else{
-				console.log("Find User")
+		var procuratecnico = await model.findOne({_id:procurajobcard.jobcard_tecnicoid},{email:1, idioma:1}).lean();
 
-			}
-		}).lean();
-
-		var procuracallcenter = await model.findOne({nome:procurajobcard.jobcard_controladorintervenientes[0]}, function(err,dataUser){
-				if(err){
-					console.log("ocorreu um erro ao tentar aceder os dados")
-				}else{
-					console.log("Find User")
-
-				}
-			});
+		var procuracallcenter = await model.findOne({nome:procurajobcard.jobcard_controladorintervenientes[0]},{email:1, idioma:1}).lean();
+	
 
 		var mailrecip = [];
 		mailrecip.push(procuratecnico);
@@ -25191,20 +25196,17 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			emailSender.createConnection();
 			//emailSender.sendEmailTecnicoJobWaitProject(procurajobcard, mailrecip, jobcard.jobcard_holdreason);
 
+		var tt = await jobcardprojects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual,jobcard_holdreason:jobcard.jobcard_holdreason, ttnumber_status:jobcard.ttnumber_status, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}});
+		if(tt.n==0)
+			var tt = await hvac_projects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual,jobcard_holdreason:jobcard.jobcard_holdreason, ttnumber_status:jobcard.ttnumber_status, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}});
+		if(tt.n==0)
+			var tt = await energia_projects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual,jobcard_holdreason:jobcard.jobcard_holdreason, ttnumber_status:jobcard.ttnumber_status, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}});
 
-		jobcardprojects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual,jobcard_holdreason:jobcard.jobcard_holdreason, ttnumber_status:jobcard.ttnumber_status, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}}, function(err, data1){
-			if(err){
-				console.log("ocorreu um erro ao tentar aceder os dados" + err)
-			}
-			else{
-
-				console.log("Jobcard update");
-			}
-
-		});
-		
 
 	});
+
+
+
 
 	router.post("/tomaraccaoprioridadedifftecnicohvac",  upload.any(), async function(req, res){
 
