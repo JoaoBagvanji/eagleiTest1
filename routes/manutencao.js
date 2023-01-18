@@ -1410,6 +1410,7 @@ router.get('/ttnumberhome', async function(req, res) {
 	var nome = userData.nome;
 	var countNew;
 	var countNewtotal;
+	var countEscalated=0;
 	var countInprogress;
 	var countInprogressTotal;
 	var countComplete;
@@ -7949,8 +7950,8 @@ router.get('/ttnumberhome/new/previouspage/:contador/:totalnr',async function(re
 		break;
 	
 		case 3:
-			data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_regiao:userData.regiao, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"} }, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).skip(contador).limit(50).lean();
-			dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New" , jobcard_regiao:userData.regiao, jobcard_departamento:userDept, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"}}, function(err, dataJobcard){}).exec();
+			data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_regiao:userData.regiao, jobcard_provincia:userData.provincia_trabalho, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"} }, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).skip(contador).limit(50).lean();
+			dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New" , jobcard_regiao:userData.regiao, jobcard_provincia:userData.provincia_trabalho ,jobcard_departamento:userDept, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"}}, function(err, dataJobcard){}).exec();
 			dataProjects = await jobcardprojects.find({ttnumber_status:"In Progress"}, {jobcard_sitedeparturedate:1, jobcard_tecniconome:1, ttnumber_status:1, jobcard_wait:1}, function(err, dataProjects){}).lean();
 			dataJobcaaards = await jobcards.find({ttnumber_status:"In Progress"}, {jobcard_sitedeparturedate:1, jobcard_tecniconome:1, ttnumber_status:1, jobcard_wait:1}, function(err, dataJobcaaards){}).lean();
 
@@ -8159,8 +8160,8 @@ router.get('/ttnumberhome/new/nextpage/:contador/:totalnr',async function(req, r
 		break;
 	
 		case 3:
-			data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_regiao:userData.regiao, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"} }, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).skip(contador).limit(50).lean();
-			dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New" , jobcard_regiao:userData.regiao, jobcard_departamento:userDept, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"}}, function(err, dataJobcard){}).exec();
+			data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_regiao:userData.regiao,jobcard_provincia:userData.provincia_trabalho, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"} }, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).skip(contador).limit(50).lean();
+			dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New" , jobcard_regiao:userData.regiao,jobcard_provincia:userData.provincia_trabalho, jobcard_departamento:userDept, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"}}, function(err, dataJobcard){}).exec();
 			dataProjects = await jobcardprojects.find({ttnumber_status:"In Progress"}, {jobcard_sitedeparturedate:1, jobcard_tecniconome:1, ttnumber_status:1, jobcard_wait:1}, function(err, dataProjects){}).lean();
 			dataJobcaaards = await jobcards.find({ttnumber_status:"In Progress"}, {jobcard_sitedeparturedate:1, jobcard_tecniconome:1, ttnumber_status:1, jobcard_wait:1}, function(err, dataJobcaaards){}).lean();
 
@@ -8367,8 +8368,8 @@ router.get('/ttnumberhome/new', async function(req, res) {
 			break;
 		
 			case 3:
-				data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_regiao:userData.regiao, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"} }, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).limit(50).lean();
-				dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New" , jobcard_regiao:userData.regiao, jobcard_departamento:userDept, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"}}, function(err, dataJobcard){}).exec();
+				data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"New", jobcard_regiao:userData.regiao,jobcard_provincia:userData.provincia_trabalho, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"} }, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).limit(50).lean();
+				dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"New" , jobcard_regiao:userData.regiao,jobcard_provincia:userData.provincia_trabalho, jobcard_departamento:userDept, jobcard_escalationlevel:0, "jobcard_prioritycomments.0":{$exists:false}, jobcard_estadoactual:{$ne:"On hold"}}, function(err, dataJobcard){}).exec();
 				dataProjects = await jobcardprojects.find({ttnumber_status:"In Progress"}, {jobcard_sitedeparturedate:1, jobcard_tecniconome:1, ttnumber_status:1, jobcard_wait:1}, function(err, dataProjects){}).lean();
 				dataJobcaaards = await jobcards.find({ttnumber_status:"In Progress"}, {jobcard_sitedeparturedate:1, jobcard_tecniconome:1, ttnumber_status:1, jobcard_wait:1}, function(err, dataJobcaaards){}).lean();
 						
@@ -8481,6 +8482,7 @@ router.get('/ttnumberhome/new', async function(req, res) {
 	}
 });
 
+
 router.get('/ttnumberhome/escalated', async function(req, res) {
 	// console.log(req.session.usuario);
 	var userData=req.session.usuario;
@@ -8552,7 +8554,7 @@ router.get('/ttnumberhome/escalated', async function(req, res) {
 		break;
 
 		case 5: 
-			data = await jobcards.find({jobcard_jobtype:"Callout", jobcard_clientenome: "Vm,Sa", $or:[{$and:[{ttnumber_status:'New'}, {jobcard_escalationlevel:{$gt:0}}]}, {$and:[{$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]}, {jobcard_estadoactual:"On hold"}]}, {$and:[{"jobcard_prioritycomments.0":{$exists:true}}, {$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]} ]}  ]}, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).limit(200).lean();
+			data = await jobcards.find({jobcard_jobtype:"Callout", jobcard_clientenome: "Vm,Sa", $or:[{$and:[{ttnumber_status:'New'}, {jobcard_escalationleel:{$gt:0}}]}, {$and:[{$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]}, {jobcard_estadoactual:"On hold"}]}, {$and:[{"jobcard_prioritycomments.0":{$exists:true}}, {$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]} ]}  ]}, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).limit(200).lean();
 			dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", jobcard_clientenome: "Vm,Sa", $or:[{$and:[{ttnumber_status:'New'}, {jobcard_escalationlevel:{$gt:0}}]}, {$and:[{$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]}, {jobcard_estadoactual:"On hold"}]}, {$and:[{"jobcard_prioritycomments.0":{$exists:true}}, {$or:[{ttnumber_status:"New"}, {ttnumber_status:"In Progress"}]} ]}  ]}, function(err, dataJobcard){}).exec();
 
 			var total = dataJobcard;
@@ -11816,27 +11818,25 @@ router.get("/detalhesDevolverJobcard/:id",  function(req, res){
 });
 
 
-router.get("/detalhesAccaoPrioridadeProject/:id",  function(req, res){
+router.get("/detalhesAccaoPrioridadeProject/:id", async function(req, res){
 	var userData= req.session.usuario;
 	console.log('traa')
 	
-	jobcardprojects.find({_id:req.params.id}, {_id:1, ttnumber_status:1}, function(err, data){
-		console.log(data)
+	var data = await  jobcardprojects.find({_id:req.params.id}, {_id:1, ttnumber_status:1}).lean();
+	if(data.length == 0)
+		var data = await hvac_projects.find({_id:req.params.id}, {_id:1, ttnumber_status:1}).lean();
+
+	console.log(data)
+	
+	model.find({$or:[{nome_supervisor:userData.nome},{regiao_id:userData.regiao_id}]}, {nome:1}, function(err, dataUsuarios){
 		if(err){
 			console.log("ocorreu um erro ao tentar aceder os dados")
 		}
 		else{
-			model.find({$or:[{nome_supervisor:userData.nome},{regiao_id:userData.regiao_id}]}, {nome:1}, function(err, dataUsuarios){
-				if(err){
-					console.log("ocorreu um erro ao tentar aceder os dados")
-				}
-				else{
-					console.log(data)
-					res.render("jobcard_accaoPrioridade_projects", {DataU:userData, Usuarios:dataUsuarios, Projects:data, title: 'EAGLEI'});
-				}
-			}).sort({nome:1}).lean();
+			console.log(data)
+			res.render("jobcard_accaoPrioridade_projects", {DataU:userData, Usuarios:dataUsuarios, Projects:data, title: 'EAGLEI'});
 		}
-	}).lean();
+	}).sort({nome:1}).lean();	
 });
 
 
@@ -16257,7 +16257,7 @@ router.post("/updatephotoinfoHvacInfo/:id",  uploadcallhvac.any(), async functio
 		var datefrom = await new Date(jobcard.reportsmaintenance_fromdate.split('/').reverse().join('-'));		
 		// queryobject.jobcard_departamento=jobcard.reportsmaintenance_department;
 
-		var numbers = await jobcards.find({...queryobject, ttnumber_status:"Complete", 'jobcard_credelecinfo.0':{$exists:true},data_ultimaactualizacaojobcard:{$gte:datefrom, $lte:dateto}},{jobcard_site:1, jobcard_ttnumber:1, jobcard_planneddate:1, data_registojobcard1:1, jobcard_provincia:1, jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,jobcard_credelecinfo:1, data_ultimaactualizacaojobcard:1}).lean();
+		var numbers = await jobcards.find({...queryobject, ttnumber_status:"Complete", 'jobcard_credelecinfo.0':{$exists:true},data_ultimaactualizacaojobcard:{$gte:datefrom, $lte:dateto}},{jobcard_site:1, jobcard_ttnumber:1, jobcard_planneddate:1, data_registojobcard1:1, jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,jobcard_provincia:1,jobcard_credelecinfo:1, data_ultimaactualizacaojobcard:1}).lean();
 		// console.log(numbers)
 
 		numbers.sort(function(a,b){ 
@@ -16310,7 +16310,7 @@ router.post("/updatephotoinfoHvacInfo/:id",  uploadcallhvac.any(), async functio
 		var datefrom = await new Date(jobcard.reportsmaintenance_fromdate.split('/').reverse().join('-'));		
 		console.log('gagagagaaa')
 
-		var numbers = await jobcards.find({...queryobject, ttnumber_status:"Complete",'jobcard_credelecinfo.0':{$exists:true},data_ultimaactualizacaojobcard:{$gte:datefrom, $lte:dateto}},{jobcard_site:1, jobcard_ttnumber:1, jobcard_planneddate:1, data_registojobcard1:1, jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,jobcard_credelecinfo:1, data_ultimaactualizacaojobcard:1}).lean();
+		var numbers = await jobcards.find({...queryobject, ttnumber_status:"Complete",'jobcard_credelecinfo.0':{$exists:true},data_ultimaactualizacaojobcard:{$gte:datefrom, $lte:dateto}},{jobcard_site:1, jobcard_ttnumber:1, jobcard_planneddate:1, data_registojobcard1:1, jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,jobcard_provincia:1,jobcard_credelecinfo:1, data_ultimaactualizacaojobcard:1}).lean();
 		console.log(numbers)
 
 		numbers.sort(function(a,b){ 
@@ -16325,6 +16325,7 @@ router.post("/updatephotoinfoHvacInfo/:id",  uploadcallhvac.any(), async functio
 					tt.jobcard_site = await gen[0].jobcard_site? gen[0].jobcard_site:'';
 					tt.jobcard_jobtype = await gen[0].jobcard_jobtype? gen[0].jobcard_jobtype:'';
 					tt.jobcard_regiao = await gen[0].jobcard_regiao? gen[0].jobcard_regiao:'';
+					tt.jobcard_provincia = await gen[0].jobcard_provincia? gen[0].jobcard_provincia:'';
 					tt.jobcard_tecniconome = await gen[0].jobcard_tecniconome? gen[0].jobcard_tecniconome:'';
 					tt.data_ultimaactualizacaojobcard = await gen[0].data_ultimaactualizacaojobcard? gen[0].data_ultimaactualizacaojobcard:'';
 					tt.jobcard_credelecnr = await gen[0].jobcard_credelecinfo[0].jobcard_credelecnr?  gen[0].jobcard_credelecinfo[0].jobcard_credelecnr:'';
@@ -18268,6 +18269,9 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.gerador_jobcardregion = jobcard.reportsmaintenance_region;		
 		}
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.gerador_jobcardprovincia = jobcard.reportsmaintenance_provincia;		
+		}
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != '' && jobcard.reportsmaintenance_department != 'Data Center' && jobcard.reportsmaintenance_department != 'Centro de Dados'){
 			queryobject.gerador_jobcarddepartment = jobcard.reportsmaintenance_department;	
 		}
@@ -18306,12 +18310,44 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		 console.log(queryobject)
 
 
-		 if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != '' && jobcard.reportsmaintenance_department != 'Data Center' && jobcard.reportsmaintenance_department != 'Centro de Dados')
-			generatorhistory.find({...queryobject,data_registo:{$lte:dateto, $gte:datefrom}}, function(err, data){
-				if(err){
-					console.log("ocorreu um erro ao tentar aceder os dados")
-				}
-				else{
+		 if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != '' && jobcard.reportsmaintenance_department != 'Data Center' && jobcard.reportsmaintenance_department != 'Centro de Dados'){ 
+			var data = await generatorhistory.find({...queryobject,data_registo:{$lte:dateto, $gte:datefrom}}).lean();
+			
+			var tt =[];
+			var dadoss=[];
+			await Promise.all( data.map(async function(y, i){
+				var provincia = await siteinfos.find({siteinfo_sitenum:y.gerador_sitenumber}, { siteinfo_provincia:1}).lean();
+				dadoss[i]= await {};
+				dadoss[i].gerador_sitenumber = y.gerador_sitenumber;
+				dadoss[i].gerador_jobcardtype = y.gerador_jobcardtype;
+				dadoss[i].gerador_jobcardmaintenanceofficer=y.gerador_jobcardmaintenanceofficer;
+				dadoss[i].gerador_jobcardregion =y.gerador_jobcardregion;
+				dadoss[i].gerador_jobcardprovincia= provincia[0].siteinfo_provincia;
+				dadoss[i].gerador_previousrefuelhours = y.gerador_previousrefuelhours;
+				dadoss[i].gerador_actualhours = y.gerador_actualhours;
+				dadoss[i].gerador_totalrunhour = y.gerador_totalrunhour;
+				dadoss[i].gerador_refuellitres = y.gerador_refuellitres;
+				dadoss[i].gerador_priceperlitre = y.gerador_priceperlitre;
+				dadoss[i].gerador_jobcardttnumber = y.gerador_jobcardttnumber;
+				dadoss[i].gerador_workstatus = y.gerador_workstatus;
+				dadoss[i].gerador_gentype = y.gerador_gentype;
+				dadoss[i].gerador_refuelreason = y.gerador_refuelreason;
+				// tt.push(dados[i]);
+
+			}));
+			// console.log(dadoss)
+
+			// await data.reduce(async(ac, obj, i)=>{
+			// 	var tt = await  siteinfos.find({siteinfo_sitenum:obj.gerador_sitenumber}, { siteinfo_provincia:1}).lean();
+
+			// 	var vvv= await {... data, gerador_jobcardprovincia:siteinfos.siteinfo_provincia};
+			// 	console.log("vvv");
+			// 	console.log(vvv);
+			// 	// console.log(data)
+			// }, 0);
+			
+				
+
 					model.findOne({nome:req.session.usuario.nome}, function(erro, dados){
 						if(erro)
 							console.log("ocorreu um erro ao tentar actualizar a foto")
@@ -18319,13 +18355,12 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 							req.session.usuario=dados;
 							var userData=req.session.usuario;
 							
-							res.render("updategeneratordetails_home", {DataU:userData, GeneratorHistory:data, pacote:JSON.stringify(req.body), title:'EAGLEI'});
+							res.render("updategeneratordetails_home", {DataU:userData, GeneratorHistory:dadoss, pacote:JSON.stringify(req.body), title:'EAGLEI'});
 						}
 					});
 
-				}
-			}).lean();
-		else
+			
+				}else
 			generatorhistory.find({...queryobject,data_registo:{$lte:dateto, $gte:datefrom},gerador_sitenumber:{$in:["1421","1551","2000","2504","4003","5506","6310"]}}, function(err, data){
 				if(err){
 					console.log("ocorreu um erro ao tentar aceder os dados")
@@ -18337,7 +18372,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 						else{
 							req.session.usuario=dados;
 							var userData=req.session.usuario;
-							
+							console.log("Werqrqrrq")
 							res.render("updategeneratordetails_home", {DataU:userData, GeneratorHistory:data, pacote:JSON.stringify(req.body), title:'EAGLEI'});
 						}
 					});
@@ -18361,6 +18396,9 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.gerador_jobcardregion = jobcard.reportsmaintenance_region;		
+		}
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.gerador_jobcardprovincia = jobcard.reportsmaintenance_provincia;		
 		}
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != '' && jobcard.reportsmaintenance_department != 'Data Center' && jobcard.reportsmaintenance_department != 'Centro de Dados'){
 			queryobject.gerador_jobcarddepartment = jobcard.reportsmaintenance_department;	
@@ -18408,6 +18446,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 							dados[i].Generator_Type=y.gerador_gentype;
 							dados[i].Technician=y.gerador_jobcardmaintenanceofficer;
 							dados[i].Region=y.gerador_jobcardregion;
+							dados[i].Provincia=y.gerador_jobcardprovincia;
 							dados[i].Date=y.gerador_dataregisto;
 							dados[i].Previous_Refuel_Hours=y.gerador_previousrefuelhours;
 							dados[i].Current_Hours=y.gerador_actualhours;
@@ -18462,6 +18501,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 							dados[i].Generator_Type=y.gerador_gentype;
 							dados[i].Technician=y.gerador_jobcardmaintenanceofficer;
 							dados[i].Region=y.gerador_jobcardregion;
+							dados[i].Provincia=y.gerador_jobcardprovincia;
 							dados[i].Date=y.gerador_dataregisto;
 							dados[i].Previous_Refuel_Hours=y.gerador_previousrefuelhours;
 							dados[i].Current_Hours=y.gerador_actualhours;
@@ -18882,6 +18922,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			tt.gerador_dataregisto = await gen[0].gerador_dataregisto? gen[0].gerador_dataregisto :"";
 			tt.gerador_jobcardmaintenanceofficer = await gen[0].gerador_jobcardmaintenanceofficer? gen[0].gerador_jobcardmaintenanceofficer :"";
 			tt.gerador_jobcardregion = await gen[0].gerador_jobcardregion? gen[0].gerador_jobcardregion :"";
+			tt.gerador_jobcardprovincia = await gen[0].gerador_jobcardprovincia? gen[0].gerador_jobcardprovincia :"";
 			tt.gerador_previousrefuelhours = await gen[0].gerador_previousrefuelhours? gen[0].gerador_previousrefuelhours :"";
 			tt.gerador_actualhours = await gen[0].gerador_actualhours? gen[0].gerador_actualhours :"";
 			tt.gerador_totalrunhour = await gen[0].gerador_totalrunhour? gen[0].gerador_totalrunhour :"";
@@ -18915,6 +18956,9 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.jobcard_regiao = jobcard.reportsmaintenance_region;	
+		}
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.jobcard_provincia = jobcard.reportsmaintenance_provincia;	
 		}
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != ''){
 			queryobject.jobcard_departamento = jobcard.reportsmaintenance_department;	
@@ -18997,7 +19041,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		// var lista1= await jobcards.find({_id: {$in:jobcardIds}});
 		
-		jobcards.find({_id:{$in:jobcardIds}},{jobcard_site:1, jobcard_ttnumber:1, jobcard_planneddate:1, data_registojobcard1:1, jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,gerador_workstatus:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1, data_ultimaactualizacaojobcard:1}, function(err, data){
+		jobcards.find({_id:{$in:jobcardIds}},{jobcard_site:1, jobcard_ttnumber:1, jobcard_planneddate:1, data_registojobcard1:1, jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1, jobcard_provincia:1,gerador_workstatus:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1, data_ultimaactualizacaojobcard:1}, function(err, data){
 			if(err){
 				console.log("ocorreu um erro ao tentar aceder os dados")
 			}
@@ -19027,6 +19071,9 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.jobcard_regiao = jobcard.reportsmaintenance_region;	
+		}
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.jobcard_provincia = jobcard.reportsmaintenance_provincia;	
 		}
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != ''){
 			queryobject.jobcard_departamento = jobcard.reportsmaintenance_department;	
@@ -19101,7 +19148,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			jobcardIds.push(obj.id);
 		});
 
-		jobcards.find({_id:{$in:jobcardIds}},{jobcard_site:1, jobcard_ttnumber:1, jobcard_planneddate:1, data_registojobcard1:1, jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,gerador_workstatus:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1, data_ultimaactualizacaojobcard:1}, async function(err, data){
+		jobcards.find({_id:{$in:jobcardIds}},{jobcard_site:1, jobcard_ttnumber:1, jobcard_planneddate:1, jobcard_provincia:1, data_registojobcard1:1, jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,gerador_workstatus:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1, data_ultimaactualizacaojobcard:1}, async function(err, data){
 			if(err){
 				console.log('ocorreu um erro ao tentar aceder os dados');
 			}
@@ -19131,6 +19178,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 						  dados[i].Data_Execucao= await y.data_ultimaactualizacaojobcard;
 						  dados[i].Technician= await y.jobcard_tecniconome;
 						  dados[i].Region= await y.jobcard_regiao;
+						  dados[i].Provincia= await y.jobcard_provincia;
 						  dados[i].Job_Type= await y.jobcard_jobtype;
 						  dados[i].Status= await y.jobcard_estadoactual;
 					
@@ -19182,6 +19230,10 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.jobcard_regiao = jobcard.reportsmaintenance_region;	
+		}
+
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.jobcard_provincia = jobcard.reportsmaintenance_provincia;	
 		}
 
 		// if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != ''){
@@ -19258,7 +19310,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		// var datafim2 = datafim.toString();
 
 
-		var sitenumberpesquisa = await siteinfos.find({$and:[{siteinfo_sitenum:{$ne:1}}, {siteinfo_sitenum:{$ne:2}}, {siteinfo_sitenum:{$ne:3}}]}, {siteinfo_sitenum:1, _id:1, siteinfo_regiaoselmec:1, siteinfo_gps:1, siteinfo_credelec:1, siteinfo_generator:1, siteinfo_ac:1, siteinfo_rectcabArray:1, siteinfo_elecpayment:1, siteinfo_typesite:1}, function(error, data){
+		var sitenumberpesquisa = await siteinfos.find({$and:[{siteinfo_sitenum:{$ne:1}}, {siteinfo_sitenum:{$ne:2}}, {siteinfo_sitenum:{$ne:3}}]}, {siteinfo_sitenum:1, _id:1, siteinfo_regiaoselmec:1, siteinfo_provincia:1, siteinfo_gps:1, siteinfo_credelec:1, siteinfo_generator:1, siteinfo_ac:1, siteinfo_rectcabArray:1, siteinfo_elecpayment:1, siteinfo_typesite:1}, function(error, data){
 			if(error){
 				console.log('Erro ao encontrar siteinfo'+ error);
 			} else {
@@ -19290,6 +19342,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 				tt.tecnico = await gen[0].jobcard_tecniconome? gen[0].jobcard_tecniconome:'';
 				tt.mananger = await gen[0].jobcard_linemanager? gen[0].jobcard_linemanager:'';
 				tt.regiao = await gen[0].jobcard_regiao? gen[0].jobcard_regiao:'';
+				tt.provincia = await gen[0].jobcard_provincia? gen[0].jobcard_provincia:'';
 
 				await producto_final.push(tt);
 			}
@@ -19406,6 +19459,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			tt.gerador_dataregisto = await gen[0].gerador_dataregisto? gen[0].gerador_dataregisto :"";
 			tt.gerador_jobcardmaintenanceofficer = await gen[0].gerador_jobcardmaintenanceofficer? gen[0].gerador_jobcardmaintenanceofficer :"";
 			tt.gerador_jobcardregion = await gen[0].gerador_jobcardregion? gen[0].gerador_jobcardregion :"";
+			tt.gerador_jobcardprovincia = await gen[0].gerador_jobcardprovincia? gen[0].gerador_jobcardprovincia :"";
 			tt.gerador_previousrefuelhours = await gen[0].gerador_previousrefuelhours? gen[0].gerador_previousrefuelhours :"";
 			tt.gerador_actualhours = await gen[0].gerador_actualhours? gen[0].gerador_actualhours :"";
 			tt.gerador_totalrunhour = await gen[0].gerador_totalrunhour? gen[0].gerador_totalrunhour :"";
@@ -19441,6 +19495,10 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.jobcard_regiao = jobcard.reportsmaintenance_region;	
+		}
+
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.jobcard_provincia = jobcard.reportsmaintenance_provincia;	
 		}
 
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != ''){
@@ -19508,7 +19566,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 	router.post("/plannedmaintenancereports", async function(req, res){
 
-				var userData= req.session.usuario;
+		var userData= req.session.usuario;
 		var jobcard = req.body;
 		var nome = userData.nome;
 		var queryobject={};
@@ -19518,6 +19576,10 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.jobcard_regiao = jobcard.reportsmaintenance_region;	
+		}
+
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.jobcard_provincia = jobcard.reportsmaintenance_provincia;	
 		}
 
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != '' && userData.departamento_id!="611e45e68cd71c1f48cf45bd"){
@@ -19805,6 +19867,10 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			queryobject.jobcard_regiao = jobcard.reportsmaintenance_region;	
 		}
 
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.jobcard_provincia = jobcard.reportsmaintenance_provincia;	
+		}
+
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != ''){
 			queryobject.jobcard_departamento = jobcard.reportsmaintenance_department;	
 		}
@@ -19845,25 +19911,25 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		console.log(controladorfuncao);
 		switch (controladorfuncao) {
 			case 1:
-				(await jobcards.find({...queryobject,jobcard_jobtype:"Preventative Maintenance", jobcard_jobinfo:"Scheduled Refuel", jobcard_planneddate: {$exists: true}, $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, {jobcard_site:1, jobcard_planneddate:1,jobcard_tecniconome:1,jobcard_departamento:1,jobcard_regiao:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
+				(await jobcards.find({...queryobject,jobcard_jobtype:"Preventative Maintenance", jobcard_jobinfo:"Scheduled Refuel", jobcard_planneddate: {$exists: true}, $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, {jobcard_site:1, jobcard_planneddate:1,jobcard_tecniconome:1,jobcard_departamento:1,jobcard_regiao:1,jobcard_provincia:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
 					planneddates.push({date: new Date(item.jobcard_planneddate.split('/').reverse().join('-')), id : item._id});
 				});
 			break;
 
 			case 2:
-				(await jobcards.find({...queryobject,jobcard_jobtype:"Preventative Maintenance", jobcard_jobinfo:"Scheduled Refuel", jobcard_planneddate: {$exists: true}, $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, {jobcard_site:1,  jobcard_planneddate:1,jobcard_tecniconome:1,jobcard_departamento:1,jobcard_regiao:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
+				(await jobcards.find({...queryobject,jobcard_jobtype:"Preventative Maintenance", jobcard_jobinfo:"Scheduled Refuel", jobcard_planneddate: {$exists: true}, $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, {jobcard_site:1,  jobcard_planneddate:1,jobcard_tecniconome:1,jobcard_departamento:1,jobcard_regiao:1,jobcard_provincia:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
 					planneddates.push({date: new Date(item.jobcard_planneddate.split('/').reverse().join('-')), id : item._id});
 				});
 			break;
 
 			case 3:
-				(await jobcards.find({...queryobject,jobcard_departamento:userData.departamento,  jobcard_regiao:userData.regiao, jobcard_jobtype:"Preventative Maintenance", jobcard_jobinfo:"Scheduled Refuel", jobcard_planneddate: {$exists: true}}, {jobcard_site:1, jobcard_jobinfo:1, jobcard_planneddate:1,jobcard_tecniconome:1,jobcard_departamento:1,jobcard_regiao:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
+				(await jobcards.find({...queryobject,jobcard_departamento:userData.departamento,  jobcard_regiao:userData.regiao, jobcard_jobtype:"Preventative Maintenance", jobcard_jobinfo:"Scheduled Refuel", jobcard_planneddate: {$exists: true}}, {jobcard_site:1, jobcard_jobinfo:1, jobcard_planneddate:1,jobcard_tecniconome:1,jobcard_departamento:1,jobcard_regiao:1,jobcard_provincia:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
 					planneddates.push({date: new Date(item.jobcard_planneddate.split('/').reverse().join('-')), id : item._id});
 				});
 			break;
 
 			case 4:
-				(await jobcards.find({...queryobject, jobcard_jobtype:"Preventative Maintenance", jobcard_jobinfo:"Scheduled Refuel", jobcard_planneddate: {$exists: true}}, {jobcard_site:1, jobcard_planneddate:1,jobcard_tecniconome:1,jobcard_departamento:1,jobcard_regiao:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
+				(await jobcards.find({...queryobject, jobcard_jobtype:"Preventative Maintenance", jobcard_jobinfo:"Scheduled Refuel", jobcard_planneddate: {$exists: true}}, {jobcard_site:1, jobcard_planneddate:1,jobcard_tecniconome:1,jobcard_departamento:1,jobcard_regiao:1,jobcard_provincia:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
 					planneddates.push({date: new Date(item.jobcard_planneddate.split('/').reverse().join('-')), id : item._id});
 				});
 			break;
@@ -19910,6 +19976,10 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.jobcard_regiao = jobcard.reportsmaintenance_region;	
+		}
+
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.jobcard_provincia = jobcard.reportsmaintenance_provincia;	
 		}
 
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != ''){
@@ -19971,25 +20041,25 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		console.log(controladorfuncao);
 		switch (controladorfuncao) {
 			case 1:
-				(await jobcards.find({...queryobject,jobcard_jobtype:"Preventative Maintenance", jobcard_planneddate: {$exists: true}, $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, {jobcard_site:1, jobcard_planneddate:1,jobcard_estadoactual:1,jobcard_tecniconome:1,jobcard_departamento:1,jobcard_regiao:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
+				(await jobcards.find({...queryobject,jobcard_jobtype:"Preventative Maintenance", jobcard_planneddate: {$exists: true}, $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, {jobcard_site:1, jobcard_planneddate:1,jobcard_estadoactual:1,jobcard_tecniconome:1,jobcard_departamento:1,jobcard_regiao:1,jobcard_provincia:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
 					planneddates.push({date: new Date(item.jobcard_planneddate.split('/').reverse().join('-')), id : item._id});
 				});
 			break;
 
 			case 2:
-				(await jobcards.find({...queryobject,jobcard_jobtype:"Preventative Maintenance", jobcard_planneddate: {$exists: true}, $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, {jobcard_site:1, jobcard_planneddate:1,jobcard_tecniconome:1,jobcard_estadoactual:1,jobcard_departamento:1,jobcard_regiao:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
+				(await jobcards.find({...queryobject,jobcard_jobtype:"Preventative Maintenance", jobcard_planneddate: {$exists: true}, $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, {jobcard_site:1, jobcard_planneddate:1,jobcard_tecniconome:1,jobcard_estadoactual:1,jobcard_departamento:1,jobcard_regiao:1,jobcard_provincia:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
 					planneddates.push({date: new Date(item.jobcard_planneddate.split('/').reverse().join('-')), id : item._id});
 				});
 			break;
 
 			case 3:
-				(await jobcards.find({...queryobject,jobcard_departamento:userData.departamento, jobcard_regiao:userData.regiao, jobcard_jobtype:"Preventative Maintenance", jobcard_planneddate: {$exists: true}}, {jobcard_site:1, jobcard_planneddate:1,jobcard_tecniconome:1,jobcard_estadoactual:1,jobcard_departamento:1,jobcard_regiao:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
+				(await jobcards.find({...queryobject,jobcard_departamento:userData.departamento, jobcard_regiao:userData.regiao, jobcard_jobtype:"Preventative Maintenance", jobcard_planneddate: {$exists: true}}, {jobcard_site:1, jobcard_planneddate:1,jobcard_tecniconome:1,jobcard_estadoactual:1,jobcard_departamento:1,jobcard_regiao:1,jobcard_provincia:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1})).forEach((item, posicao) =>{
 					planneddates.push({date: new Date(item.jobcard_planneddate.split('/').reverse().join('-')), id : item._id});
 				});
 			break;
 
 			case 4:
-			var data = await jobcards.find({...queryobject,jobcard_jobtype:"Preventative Maintenance", jobcard_departamento:"Telco", jobcard_planneddatems: {$gte:datefromms, $lte:datetoms}}, {jobcard_site:1, jobcard_planneddate:1,jobcard_estadoactual:1,jobcard_tecniconome:1,jobcard_departamento:1,jobcard_regiao:1,generatorArrayJobcard:1});
+			var data = await jobcards.find({...queryobject,jobcard_jobtype:"Preventative Maintenance", jobcard_departamento:"Telco", jobcard_planneddatems: {$gte:datefromms, $lte:datetoms}}, {jobcard_site:1, jobcard_planneddate:1,jobcard_estadoactual:1,jobcard_tecniconome:1,jobcard_departamento:1,jobcard_regiao:1,jobcard_provincia:1,generatorArrayJobcard:1});
 			
 			// console.log(data);
 			selectedDates = data;
@@ -20055,6 +20125,10 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		if(jobcard.reportsmaintenance_region != undefined && jobcard.reportsmaintenance_region != ''){
 			queryobject.jobcard_regiao = jobcard.reportsmaintenance_region;	
+		}
+
+		if(jobcard.reportsmaintenance_provincia != undefined && jobcard.reportsmaintenance_provincia != ''){
+			queryobject.jobcard_provincia = jobcard.reportsmaintenance_provincia;	
 		}
 
 		if(jobcard.reportsmaintenance_department != undefined && jobcard.reportsmaintenance_department != ''){
@@ -20155,7 +20229,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		// var lista1= await jobcards.find({_id: {$in:jobcardIds}});
 		
-		jobcards.find({_id: {$in:jobcardIds}},{jobcard_site:1,jobcard_planneddate:1,jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,gerador_workstatus:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1}, function(err, data){
+		jobcards.find({_id: {$in:jobcardIds}},{jobcard_site:1,jobcard_planneddate:1,jobcard_sitearrivaldate:1,jobcard_estadoactual:1,jobcard_loggedby:1,jobcard_tecniconome:1,jobcard_jobtype:1,jobcard_regiao:1,jobcard_provincia:1,gerador_workstatus:1,sparesArrayJobcard:1,generatorArrayJobcard:1,jobcard_credelecinfo:1}, function(err, data){
 			if(err){
 				console.log("ocorreu um erro ao tentar aceder os dados")
 			}
@@ -20378,6 +20452,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			geradorhistObj.gerador_jobcardmaintenanceofficer = userData.nome;
 			geradorhistObj.gerador_jobcardmaintenanceofficerid = userData._id;
 			geradorhistObj.gerador_jobcardregion = procurajobcard.jobcard_regiao;
+			geradorhistObj.gerador_jobcardprovincia = procurajobcard.jobcard_provincia;
 			geradorhistObj.gerador_jobcarddepartment = procurajobcard.jobcard_departamento;
 			geradorhistObj.gerador_siteinforefid = sitenum;
 			geradorhistObj.gerador_siteinforef = procurasite.siteinfo_cod;
@@ -20532,6 +20607,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		geradorhistObj.gerador_jobcardmaintenanceofficer = userData.nome;
 		geradorhistObj.gerador_jobcardmaintenanceofficerid = userData._id;
 		geradorhistObj.gerador_jobcardregion = procurajobcard.jobcard_regiao;
+		geradorhistObj.gerador_jobcardprovincia = procurajobcard.jobcard_provincia;
 		geradorhistObj.gerador_jobcarddepartment = procurajobcard.jobcard_departamento;
 		geradorhistObj.gerador_siteinforefid = sitenum;
 		geradorhistObj.gerador_siteinforef = procurasite.siteinfo_cod;
@@ -20903,6 +20979,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		geradorhistObj.gerador_jobcardmaintenanceofficer = userData.nome;
 		geradorhistObj.gerador_jobcardmaintenanceofficerid = userData._id;
 		geradorhistObj.gerador_jobcardregion = procurajobcard.jobcard_regiao;
+		geradorhistObj.gerador_jobcardprovincia = procurajobcard.jobcard_provincia;
 		geradorhistObj.gerador_jobcarddepartment = procurajobcard.jobcard_departamento;
 		geradorhistObj.gerador_siteinforefid = sitenum;
 		geradorhistObj.gerador_siteinforef = procurasite.siteinfo_cod;
@@ -24785,15 +24862,16 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		var todayhours = new Date();
 		var todaytime = todayhours.getHours() + ":" + todayhours.getMinutes();
 
-		console.log('Tra2')
-		var procurajobcard = await jobcardprojects.findOne({_id:jobcard.jobcard_id}, function(err, data){
-			if(err){
-				console.log(err);
-			}else{
-				console.log("Find Jobcard");
-			}
-		});
 
+		var procurajobcard = await jobcardprojects.findOne({_id:jobcard.jobcard_id}).lean();
+		if(procurajobcard== null)
+			var procurajobcard = await hvac_projects.findOne({_id:jobcard.jobcard_id}).lean();
+		if(procurajobcard== null)
+			var procurajobcard = await energia_projects.findOne({_id:jobcard.jobcard_id}).lean();
+
+
+			console.log("CONSOLE LOG HERE");
+			console.log(procurajobcard); 
 		//id do tecnico antigo
 		var jobcard_tecniconomeantigo = procurajobcard.jobcard_tecniconome;
 		var jobcard_tecnicoidantigo = procurajobcard.jobcard_tecnicoid;
@@ -24875,7 +24953,7 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			
 
 
-		jobcardprojects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual, jobcard_holdreason:jobcard.jobcard_holdreason,jobcard_holdaction:jobcard.jobcard_holdaction,jobcard_controlador:jobcard.jobcard_controlador, jobcard_controladorintervenientes:jobcard.jobcard_controladorintervenientes, ttnumber_status:jobcard.ttnumber_status, jobcard_tecnicoid:jobcard.jobcard_tecnicoid1, jobcard_tecniconome:jobcard.jobcard_tecniconome, jobcard_regiao:jobcard.jobcard_regiao, jobcard_cell:jobcard.jobcard_cell, jobcard_linemanager:jobcard.jobcard_linemanager, jobcard_linemanagerid:jobcard.jobcard_linemanagerid, jobcard_linemanagercell:jobcard.jobcard_linemanagercell, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}}, function(err, data1){
+		var tt = await jobcardprojects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual, jobcard_holdreason:jobcard.jobcard_holdreason,jobcard_holdaction:jobcard.jobcard_holdaction,jobcard_controlador:jobcard.jobcard_controlador, jobcard_controladorintervenientes:jobcard.jobcard_controladorintervenientes, ttnumber_status:jobcard.ttnumber_status, jobcard_tecnicoid:jobcard.jobcard_tecnicoid1, jobcard_tecniconome:jobcard.jobcard_tecniconome, jobcard_regiao:jobcard.jobcard_regiao, jobcard_cell:jobcard.jobcard_cell, jobcard_linemanager:jobcard.jobcard_linemanager, jobcard_linemanagerid:jobcard.jobcard_linemanagerid, jobcard_linemanagercell:jobcard.jobcard_linemanagercell, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}}, function(err, data1){
 			if(err){
 				console.log("ocorreu um erro ao tentar aceder os dados" + err)
 			}
@@ -24885,7 +24963,28 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			}
 
 		});
-		
+		if(tt.n==0)
+			var tt = await hvac_projects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual, jobcard_holdreason:jobcard.jobcard_holdreason,jobcard_holdaction:jobcard.jobcard_holdaction,jobcard_controlador:jobcard.jobcard_controlador, jobcard_controladorintervenientes:jobcard.jobcard_controladorintervenientes, ttnumber_status:jobcard.ttnumber_status, jobcard_tecnicoid:jobcard.jobcard_tecnicoid1, jobcard_tecniconome:jobcard.jobcard_tecniconome, jobcard_regiao:jobcard.jobcard_regiao, jobcard_cell:jobcard.jobcard_cell, jobcard_linemanager:jobcard.jobcard_linemanager, jobcard_linemanagerid:jobcard.jobcard_linemanagerid, jobcard_linemanagercell:jobcard.jobcard_linemanagercell, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}}, function(err, data1){
+			if(err){
+				console.log("ocorreu um erro ao tentar aceder os dados" + err)
+			}
+			else{
+
+				console.log("Jobcard update");
+			}
+
+			});
+		if(tt.n==0)
+			var tt = await energia_projects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual, jobcard_holdreason:jobcard.jobcard_holdreason,jobcard_holdaction:jobcard.jobcard_holdaction,jobcard_controlador:jobcard.jobcard_controlador, jobcard_controladorintervenientes:jobcard.jobcard_controladorintervenientes, ttnumber_status:jobcard.ttnumber_status, jobcard_tecnicoid:jobcard.jobcard_tecnicoid1, jobcard_tecniconome:jobcard.jobcard_tecniconome, jobcard_regiao:jobcard.jobcard_regiao, jobcard_cell:jobcard.jobcard_cell, jobcard_linemanager:jobcard.jobcard_linemanager, jobcard_linemanagerid:jobcard.jobcard_linemanagerid, jobcard_linemanagercell:jobcard.jobcard_linemanagercell, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}}, function(err, data1){
+			if(err){
+				console.log("ocorreu um erro ao tentar aceder os dados" + err)
+			}
+			else{
+
+				console.log("Jobcard update");
+			}
+
+			});
 
 	});
 
@@ -25059,21 +25158,17 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		var todayhours = new Date();
 		var todaytime = todayhours.getHours() + ":" + todayhours.getMinutes();
-		console.log('tra3')
-		console.log(jobcard)
 
-		var procurajobcard = await jobcardprojects.findOne({_id:jobcard.jobcard_id}, {jobcard_tecnicoid:1,jobcard_controladorintervenientes:1, }, function(err, data){
-			if(err){
-				console.log(err);
-			}else{
-				console.log("Find Jobcard");
-			}
-		}).lean();
-
+		var procurajobcard = await jobcardprojects.findOne({_id:jobcard.jobcard_id}, {jobcard_tecnicoid:1,jobcard_controladorintervenientes:1, }).lean();
+		if(procurajobcard== null)
+			var procurajobcard = await hvac_projects.findOne({_id:jobcard.jobcard_id}, {jobcard_tecnicoid:1,jobcard_controladorintervenientes:1,}).lean();
+		if(procurajobcard== null)
+			var procurajobcard = await energia_projects.findOne({_id:jobcard.jobcard_id}, {jobcard_tecnicoid:1,jobcard_controladorintervenientes:1,}).lean();
+		
 
 		// jobcard.jobcard_controlador = [1];
 		
-		jobcard.ttnumber_status = "In Progress";
+		jobcard.ttnumber_status = "New";
 		jobcard.jobcard_estadoactual = "On hold";
 		jobcard.jobcard_wait = "sim";
 		jobcard.geolocationJobcardInfo = [];
@@ -25085,24 +25180,13 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 		audittrailObject.jobcard_audittrailaction = "Put the project on hold. reason: " + jobcard.jobcard_holdreason;
 		audittrailObject.jobcard_audittraildate = dia + "/" + mes + "/" + ano + "  " + todaytime;
 		
+	console.log("CONSOLE LOG HERE");
+	console.log(procurajobcard); 
 
-		var procuratecnico = await model.findOne({_id:procurajobcard.jobcard_tecnicoid},{email:1, idioma:1}, function(err,dataUser){
-			if(err){
-				console.log("ocorreu um erro ao tentar aceder os dados")
-			}else{
-				console.log("Find User")
+		var procuratecnico = await model.findOne({_id:procurajobcard.jobcard_tecnicoid},{email:1, idioma:1}).lean();
 
-			}
-		}).lean();
-
-		var procuracallcenter = await model.findOne({nome:procurajobcard.jobcard_controladorintervenientes[0]}, function(err,dataUser){
-				if(err){
-					console.log("ocorreu um erro ao tentar aceder os dados")
-				}else{
-					console.log("Find User")
-
-				}
-			});
+		var procuracallcenter = await model.findOne({nome:procurajobcard.jobcard_controladorintervenientes[0]},{email:1, idioma:1}).lean();
+	
 
 		var mailrecip = [];
 		mailrecip.push(procuratecnico);
@@ -25112,20 +25196,17 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 			emailSender.createConnection();
 			//emailSender.sendEmailTecnicoJobWaitProject(procurajobcard, mailrecip, jobcard.jobcard_holdreason);
 
+		var tt = await jobcardprojects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual,jobcard_holdreason:jobcard.jobcard_holdreason, ttnumber_status:jobcard.ttnumber_status, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}});
+		if(tt.n==0)
+			var tt = await hvac_projects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual,jobcard_holdreason:jobcard.jobcard_holdreason, ttnumber_status:jobcard.ttnumber_status, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}});
+		if(tt.n==0)
+			var tt = await energia_projects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual,jobcard_holdreason:jobcard.jobcard_holdreason, ttnumber_status:jobcard.ttnumber_status, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}});
 
-		jobcardprojects.updateOne({_id:jobcard.jobcard_id},{$set:{jobcard_estadoactual:jobcard.jobcard_estadoactual,jobcard_holdreason:jobcard.jobcard_holdreason, ttnumber_status:jobcard.ttnumber_status, jobcard_wait:jobcard.jobcard_wait, geolocationJobcardInfo:jobcard.geolocationJobcardInfo},$unset:{jobcard_tecarrivaldate:"", jobcard_tecarrivaltime:"", jobcard_sitearrivaldate:"", jobcard_sitearrivaltime:"", jobcard_sitedeparturedate:"", jobcard_sitedeparturetime:"", jobcard_tecarrivalduration:"", jobcard_arrivaldepartureduration:"", jobcard_workstatus:"", jobcard_remedialaction:"", jobcard_healthsafety:"", jobcard_hsreason:"", jobcard_healthsafety:""}, $push:{jobcard_audittrail:audittrailObject}}, function(err, data1){
-			if(err){
-				console.log("ocorreu um erro ao tentar aceder os dados" + err)
-			}
-			else{
-
-				console.log("Jobcard update");
-			}
-
-		});
-		
 
 	});
+
+
+
 
 	router.post("/tomaraccaoprioridadedifftecnicohvac",  upload.any(), async function(req, res){
 

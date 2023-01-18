@@ -14689,6 +14689,38 @@ $('.captarinqueritoair').click(function(){
 		}
 	});
 
+	$('.editardetalhesGeradoresSiteInfo').click(function(){
+
+		var referencia = $(this).attr("data-user-new");
+
+		var referenciaArray = $(this).attr("data-array-new");
+
+		 var detalhesSiteInfoGenerator = JSON.parse($(this).attr("dadosSiteInfo"));
+		 console.log("Cheguei");
+		 console.log(detalhesSiteInfoGenerator);
+
+		 $("#siteinfo_generatortype").val(detalhesSiteInfoGenerator.siteinfo_generatortype);
+
+			$("#siteinfo_generatoroutputkw").val(detalhesSiteInfoGenerator.siteinfo_generatoroutputkw);
+			$("#siteinfo_generatoroutputkw").siblings('label').addClass('active');
+
+			$("#siteinfo_generatormodelno").val(detalhesSiteInfoGenerator.siteinfo_generatormodelno);
+			$("#siteinfo_generatormodelno").siblings('label').addClass('active');
+
+			$("#siteinfo_generatorengineserialnumber").val(detalhesSiteInfoGenerator.siteinfo_generatorengineserialnumber);
+			$("#siteinfo_generatorengineserialnumber").siblings('label').addClass('active');
+
+			$("#siteinfo_generatorenginecapacity").val(detalhesSiteInfoGenerator.siteinfo_generatorenginecapacity);
+			$("#siteinfo_generatorstartertype").val(detalhesSiteInfoGenerator.siteinfo_generatorstartertype);
+
+			$("#siteinfo_generatorfuelconsumption").val(detalhesSiteInfoGenerator.siteinfo_generatorfuelconsumption);
+			$("#siteinfo_generatorfuelconsumption").siblings('label').addClass('active');
+
+			$('#siteinfogeneratorinfo_yes_btn_modal').addClass('hide');
+			$('#siteinfogeneratorinfo_update_btn_modal').siblings('label').addClass('active');
+			$('#siteinfogeneratorinfo_modal').openModal({dismissible:false});
+
+	});
 
 	$('.mostrardetalhesGeradoresSiteInfo').click(function(){
 
@@ -14697,6 +14729,8 @@ $('.captarinqueritoair').click(function(){
 		var referenciaArray = $(this).attr("data-array-new");
 
 		 var detalhesSiteInfoGenerator = JSON.parse($(this).attr("dadosSiteInfo"));
+		 console.log("Cheguei");
+		 console.log(detalhesSiteInfoGenerator);
 
 		 $("#siteinfo_generatortype").val(detalhesSiteInfoGenerator.siteinfo_generatortype);
 
@@ -33039,7 +33073,7 @@ var demoJson = {
 		},
 		"provincia_adm":{
 				"en":"Province",
-				"pt":"Provincia"
+				"pt":"Província"
 		},
 		"viatura_adm":{
 				"en":"Vehicle",
@@ -33075,12 +33109,16 @@ var demoJson = {
 	},
 	"Provincia":{
 			"en":"Province",
-			"pt":"Provincia"
+			"pt":"Província"
 	},
 	"regiao":{
 			"en":"Region",
 			"pt":"Regiao"
-	}
+	},
+	"provincia":{
+		"pt": "Província",
+		"en": "Province"
+	},
 },
 
 "Armazem_home":{
@@ -33094,12 +33132,16 @@ var demoJson = {
 	},
 	"provincia":{
 			"en":"Province",
-			"pt":"Provincia"
+			"pt":"Província"
 	},
 	"regiao":{
 			"en":"Region",
 			"pt":"Regiao"
-	}
+	},
+	"provincia":{
+		"pt": "Província",
+		"en": "Province"
+	},
 },
 
 
@@ -33110,11 +33152,15 @@ var demoJson = {
 	},
 	"Provincia":{
 			"en":"Province",
-			"pt":"Provincia"
+			"pt":"Província"
 	},
 	"regiao":{
 			"en":"Region",
 			"pt":"Regiao"
+	},
+	"provincia":{
+		"pt": "Província",
+		"en": "Province"
 	},
 	"titulo1":{
 			"en":"Warehouse registration",
@@ -33640,7 +33686,7 @@ var demoJson = {
 					},
 
 					"provincia": {
-							"pt": "Provincia",
+							"pt": "Província",
 							"en": "Province"
 					},
 
@@ -33942,11 +33988,12 @@ var demoJson = {
 							"pt": "Detalhes de Energia",
 							"en": "Energy Details"
 					},
+					
 
 						"previohour": {
 						"pt": "Horas Anteriores",
 						"en": "Previous Refuel Hours"
-				},
+					},
 
 							"Litros": {
 							"pt": "Litros Abastecidos",
@@ -34173,6 +34220,11 @@ var demoJson = {
 					"region":{
 						"pt": "Região",
 						"en": "Region"
+					},
+
+					"province":{
+						"pt": "Província",
+						"en": "Province"
 					},
 
 					"status":{
@@ -34763,6 +34815,10 @@ var demoJson = {
 							"pt": "Região",
 							"en": "Region"
 					},
+					"provincia":{
+						"pt": "Província",
+						"en": "Province"
+					},
 
 					"jobtype": {
 							"pt": "Tipo de trabalho",
@@ -35304,6 +35360,10 @@ var demoJson = {
 					"regiao": {
 							"pt": "Região",
 							"en": "Region"
+					},
+					"provincia":{
+						"pt": "Província",
+						"en": "Province"
 					},
 
 					"area": {
@@ -37377,6 +37437,10 @@ var demoJson = {
 							"en": "Region",
 							"pt": "Região"
 					},
+					"provincia":{
+						"pt": "Província",
+						"en": "Province"
+					},
 					"departamento": {
 							"en": "Department",
 							"pt": "Departamento"
@@ -37554,6 +37618,10 @@ var demoJson = {
 					"regiao": {
 							"pt": "Região",
 							"en": "Region"
+					},
+					"provincia":{
+						"pt": "Província",
+						"en": "Province"
 					},
 
 					"sitedetails": {

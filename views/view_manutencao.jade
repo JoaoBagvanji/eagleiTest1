@@ -51,6 +51,7 @@ block content
 							th <span data-i18n="demo.manutencao_form.dataregistro"></span>
 							th <span data-i18n="demo.manutencao_form.lastupdate"></span>
 							th <span data-i18n="demo.manutencao_form.region"></span>
+							th <span data-i18n="demo.manutencao_form.provincia"></span>
 							th Criado Por
 							th Estado
 							th <span data-i18n="demo.manutencao_form.responsetime"></span>
@@ -97,6 +98,7 @@ block content
 										-var seconds = Jobcards[index].data_ultimaactualizacaojobcard.getSeconds()
 									td #{day}/#{month}/#{year}, #{hours}:#{minutes}:#{seconds}
 								td #{Jobcards[index].jobcard_regiao}
+								td #{Jobcards[index].jobcard_provincia}
 								td #{Jobcards[index].jobcard_loggedby}
 								td #{Jobcards[index].jobcard_estadoactual}
 								if ((Jobcards[index].jobcard_responsetime) == null)
@@ -120,7 +122,7 @@ block content
 										-else
 											a.tooltipped.pointer.info(style="margin-left: 15px", data-position="top", data-delay="10", data-user-new="#{Jobcards[index]._id}", data-tooltip="Didn't add") <img style='width:20px;' src='/img/dinied.png'>
 									td
-										-if(Jobcards[index].jobcard_credelecinfo != undefined && Jobcards[index].jobcard_credelecinfo.length != 0)
+										-if(Jobcards[index].jobcard_credelecinfo != undefined && Jobcards[index].jobcard_credelecinfo.length != 0 )
 											a.tooltipped.pointer.info(style="margin-left: 15px", data-position="top", data-delay="10", data-tooltip="Added") <img style='width:20px;' src='/img/checked2.png'>
 										-else
 											a.tooltipped.pointer.info(style="margin-left: 15px", data-position="top", data-delay="10", data-user-new="#{Jobcards[index]._id}", data-tooltip="Didn't add") <img style='width:20px;' src='/img/dinied.png'>
@@ -134,7 +136,6 @@ block content
 												a.tooltipped.pointer.analiseRisco(style="margin-left: 5px; color:green",data-position="top", data-delay="10", data-tooltip="Analise de Risco", data-user-new="#{Jobcards[index]._id}", datajobtype="#{Jobcards[index].jobcard_jobtype}") <img width="30px" src="/img/risk2.png" style="margin-bottom:-2px">
 											-else
 												a.tooltipped.pointer.generatordetalhes(style="margin-left: 0px; color:green",data-position="top", data-delay="10", data-tooltip="Generator Details", datareferencia="#{Jobcards[index]._id}") <img width="27px" src="/img/generator.png" style="margin-bottom:-2px">
-												a.tooltipped.pointer.credelecdetalhes(style="margin-left: 0px; color:green",data-position="top", data-delay="10", data-tooltip="Credelec Details", datareferencia="#{Jobcards[index]._id}") <img width="27px" src="/img/electricity.png" style="margin-bottom:-2px">
 												a.tooltipped.pointer.equipmentrepairs(style="margin-left: 5px; color:green",data-position="top", data-delay="10", data-tooltip="Equipment Repairs", data-user-new="#{Jobcards[index]._id}") <i class="material-icons selmecAzul">build</i>
 												a.tooltipped.pointer.sparesused(style="margin-left: 5px; color:green",data-position="top", data-delay="10", data-tooltip="Spares Used", data-user-new="#{Jobcards[index]._id}", data-user-name="#{Jobcards[index].jobcard_tecnicoid}") <img width="30px" src="/img/boxspares.png" style="margin-bottom:-2px">
 												a.tooltipped.pointer.notifycallcenter(style="margin-left: 5px; color:green",data-position="top", data-delay="10", data-tooltip="Submit work", data-user-new="#{Jobcards[index]._id}" datajobtype="#{Jobcards[index].jobcard_jobtype}") <img width="30px" src="/img/notifycallcenterimg.png" style="margin-bottom:-2px">
@@ -151,11 +152,13 @@ block content
 										a.pointer.aprovarttnumber(style="margin-left: 5px; color:green",data-position="top", data-delay="10", data-tooltip="Accept the jobcard", data-user-new="#{Jobcards[index]._id}", datajobtype="#{Jobcards[index].jobcard_jobtype}", detalhescall="#{JSON.stringify(Jobcards[index].jobcard_call)}") <i class="material-icons bold">thumb_up</i>
 									-if ((DataU.nome==Jobcards[index].jobcard_controladorintervenientes[1]) && (Jobcards[index].jobcard_controlador.length == 4) || (Jobcards[index].ttnumber_status == "In Progress" && DataU.nome==Jobcards[index].jobcard_tecniconome) && (Jobcards[index].jobcard_estadoactual == "Approved"))
 										a.pointer.saidasitecallout(style="margin-left: 0px; color:green",data-position="top", data-delay="10", data-tooltip="Site Departure", data-user-new="#{Jobcards[index]._id}" datajobtype="#{Jobcards[index].jobcard_jobtype}") <i class="material-icons selmecAzul">time_to_leave</i>
-									-if ((DataU.nome==Jobcards[index].jobcard_controladorintervenientes[2] || DataU.funcao == "Regional Manager" || DataU.nivel_acesso == "admin" || DataU.nome == "Antonio Biquiza" || DataU.nome == "Luis Brazuna" || DataU.nome == "Teresa Guimaraes" || DataU.funcao=="Manager" || DataU.funcao=="Commercial") && (Jobcards[index].jobcard_sitedeparturedate == undefined) && (Jobcards[index].jobcard_controlador.length < 3))
+									-if ((DataU.funcao == "regional_manager" && DataU.provincia_trabalho == Jobcards[index].jobcard_provincia) || (DataU.funcao == "Regional Manager" || DataU.nivel_acesso == "admin" || DataU.nome == "Antonio Biquiza" || DataU.nome == "Luis Brazuna" || DataU.nome == "Teresa Guimaraes" || DataU.funcao=="Manager" || DataU.funcao=="Commercial") && (Jobcards[index].jobcard_sitedeparturedate == undefined) && (Jobcards[index].jobcard_controlador.length < 3))
 										a.tooltipped.pointer(style="margin-left: 5px", data-position="top", data-delay="10", data-tooltip="Take action" href="/manutencao/detalhesAccaoPrioridade/#{Jobcards[index]._id}") <i class="material-icons selmecAzul">pan_tool</i>
 									-if((DataU.funcao == "Call Center") && (Jobcards[index].jobcard_sitedeparturedate == undefined && DataU.nivel_acesso == "normal") && (DataU.departamento_id!="615349880bd5ed0cdc5ea1b8"))
 										a.tooltipped.pointer(style="margin-left: 5px", data-position="top", data-delay="10", data-tooltip="Add comments", href="/manutencao/detalhesCallCenterComments/#{Jobcards[index]._id}") <img width="20px" src="/img/addcomments.png" style="margin-bottom:-2px">
 										a.tooltipped.pointer(style="margin-left: 5px", data-position="top", data-delay="10", data-tooltip="Take action" href="/manutencao/detalhesAccaoCallcenter/#{Jobcards[index]._id}") <i class="material-icons selmecAzul">pan_tool</i>
+										-if(Jobcards[index].jobcard_analisederisco || Jobcards[index].jobcard_analisederiscoAmbiental) 
+											a.tooltipped.pointer.credelecdetalhes(style="margin-left: 0px; color:green",data-position="top", data-delay="10", data-tooltip="Credelec Details", datareferencia="#{Jobcards[index]._id}") <img width="27px" src="/img/electricity.png" style="margin-bottom:-2px">
 									-if(DataU.nome == "Constantino Guijumba" && DataU.funcao == "Manager" && (DataU.nome != "Teresa Guimaraes") && (DataU.departamento_id!="615349880bd5ed0cdc5ea1b8"))
 										a.pointer.tooltipped.deletejobcard(style="margin-left: 5px; color:green", data-position="top", data-delay="10", data-tooltip="Delete Jobcard", data-user-new="#{Jobcards[index]._id}", detalhescall="#{JSON.stringify(Jobcards[index].jobcard_call)}") <i class="material-icons selmecAzul bold">delete</i>
 									a.tooltipped.pointer.detalhesJobcardCallOut.info(style="margin-left: 5px", data-position="top", data-delay="10", data-user-new="#{Jobcards[index]._id}", labesl="#{Jobcards[index].viatura}", data-tooltip="Details of job card") <i class="material-icons activarVerde">info</i>

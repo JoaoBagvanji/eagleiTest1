@@ -647,8 +647,6 @@ router.get("/provincedetele/:id", async(req, res)=>{
 	
 
 
-	
-
 	if(userData.nivel_acesso=="admin")
 		{
 
