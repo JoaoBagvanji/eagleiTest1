@@ -28,6 +28,7 @@ block content
 							th Site
 							th Job Type 
 							th <span data-i18n="demo.manutencao_form.regiao"></span>
+							th Provincia
 							th <span data-i18n="demo.manutencao_form.tecniconome1"></span>
 							th <span data-i18n="demo.manutencao_form.maintenancedate"></span>
 							th Credelec Number
@@ -46,6 +47,7 @@ block content
 								td #{Jobcards[index].jobcard_site}
 								td #{Jobcards[index].jobcard_jobtype}
 								td #{Jobcards[index].jobcard_regiao}
+								td #{Jobcards[index].jobcard_provincia}
 								td #{Jobcards[index].jobcard_tecniconome}
 								td #{Jobcards[index].data_ultimaactualizacaojobcard.getDate()+'/'+(Jobcards[index].data_ultimaactualizacaojobcard.getMonth()+1)+'/'+(Jobcards[index].data_ultimaactualizacaojobcard.getFullYear())}
 								td #{Jobcards[index].jobcard_credelecnr}
