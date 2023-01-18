@@ -33,6 +33,7 @@ block content
 							th Job Type
 							th Região
 							th Província
+							th Tempo de Resposta
 							//- th Amount Add.
 							th Compliance
 							th Spare Usado
@@ -54,6 +55,15 @@ block content
 								td #{AllJobcardsHistory[index].jobcard_jobtype}
 								td #{AllJobcardsHistory[index].jobcard_regiao}
 								td #{AllJobcardsHistory[index].jobcard_provincia}
+								if ((AllJobcardsHistory[index].jobcard_responsetime) == null)
+										td ----
+									else
+										if((AllJobcardsHistory[index].jobcard_responsedays) > 1)
+											td #{AllJobcardsHistory[index].jobcard_responsedays} dias e #{AllJobcardsHistory[index].jobcard_responsetime} hrs
+										else if((AllJobcardsHistory[index].jobcard_responsedays) == 1)
+											td #{AllJobcardsHistory[index].jobcard_responsedays} dia e #{AllJobcardsHistory[index].jobcard_responsetime} hrs
+										else
+											td #{AllJobcardsHistory[index].jobcard_responsetime} hrs
 								//- td #{AllJobcardsHistory[index].jobcard_amountadded} AMOUNT ADDED td #{AllJobcardsHistory[index].jobcard_planneddate}
 								-if((AllJobcardsHistory[index].gerador_workstatus != undefined) && (AllJobcardsHistory[index].gerador_workstatus != ""))
 									td #{AllJobcardsHistory[index].gerador_workstatus}

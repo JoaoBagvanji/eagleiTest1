@@ -38,6 +38,7 @@ block content
 							th Call Center
 							th <span data-i18n="demo.manutencao_form.regiao"></span>
 							th <span data-i18n="demo.manutencao_form.provincia"></span>
+							th <span data-i18n="demo.manutencao_form.responsetime"></span>
 							th 
 
 					tbody(id="myTableUser1")
@@ -83,6 +84,15 @@ block content
 								td #{CalloutStatsHistory[index].jobcard_loggedby}
 								td #{CalloutStatsHistory[index].jobcard_regiao}
 								td #{CalloutStatsHistory[index].jobcard_provincia}
+								if ((CalloutStatsHistory[index].jobcard_responsetime) == null)
+										td ----
+									else
+										if((CalloutStatsHistory[index].jobcard_responsedays) > 1)
+											td #{CalloutStatsHistory[index].jobcard_responsedays} dias e #{CalloutStatsHistory[index].jobcard_responsetime} hrs
+										else if((CalloutStatsHistory[index].jobcard_responsedays) == 1)
+											td #{CalloutStatsHistory[index].jobcard_responsedays} dia e #{CalloutStatsHistory[index].jobcard_responsetime} hrs
+										else
+											td #{CalloutStatsHistory[index].jobcard_responsetime} hrs
 								td.center-align
 									a.tooltipped.pointer.info(style="margin-left: 25px", data-position="top", data-delay="10", href="/manutencao/detalhesJobcardCallOut/#{CalloutStatsHistory[index]._id}", data-tooltip="Details of maintenance") <i class="material-icons activarVerde">info</i>
 	block js
