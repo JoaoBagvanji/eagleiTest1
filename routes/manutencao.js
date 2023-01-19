@@ -10443,7 +10443,7 @@ router.get('/ttnumberhome/complete', async function(req, res) {
 
 	}else if(userData.departamento_id=="611e45c98cd71c1f48cf45bc" || userData.departamento_id=="61532251699ee012d00db4e7"){
 	switch (controladorfuncao) {
-		case 1:
+		case 1: 
 			data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"Complete", $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, function(err, data){}).sort({data_ultimaactualizacaojobcard:-1}).limit(50).lean();
 			dataJobcard = await jobcards.countDocuments({jobcard_jobtype:"Callout", ttnumber_status:"Complete", $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, function(err, dataJobcard){}).exec();
 			
