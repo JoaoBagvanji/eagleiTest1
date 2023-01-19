@@ -12212,10 +12212,12 @@ $('.captarinqueritoair').click(function(){
  });
 
  $('#jobcardcredlecinfo_yes_btn').click(function(){
-
-		
+		// var jobcardphotoinfo = arrJobcard_photoMaint;
+		// var timett = jobcardphotoinfo.length*120000;
+		// $('#loading').fadeIn().delay(timett).fadeOut();
 		var referencia = $("#recolherdados").attr("dadosreferenciajobcard");
 		var dadojobtype = $("#recolherdados").attr("dadosjobtype");
+
 		
 
 		if(($("#jobcard_currentkwh").val() == "") || ($("#jobcard_kwhafter").val() == "") || ($("#jobcard_amountadded").val() == "") || ($("#jobcard_transactionr").val() == "") || ($("#jobcard_credelecnr").val() == "") ){
@@ -12239,9 +12241,10 @@ $('.captarinqueritoair').click(function(){
 						 $('#loading').fadeIn().delay(20000).fadeOut();
 						 
 						 var jobcardformdata = new FormData();
-						 
-
-							var rule="/manutencao/updatecredelecdetails";
+						
+							var rule="/manutencao/updatecredelecdetails/"+referencia;
+							var jobcard_credelec=$("#jobcardphotoinfo").get(0).files;
+							jobcardformdata.append("jobcard_credelec", jobcard_credelec[0]);
 
 							var jobcard_id = referencia;
 							jobcardformdata.append("jobcard_id", jobcard_id);

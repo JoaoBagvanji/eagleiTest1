@@ -9685,8 +9685,8 @@ router.post('/tthomecompletepesquisa', async function(req, res) {
 			break;
 
 			case 2:
-				data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"Complete", $or:[{jobcard_site:controlador}, {jobcard_ttnumber: ttnr}, {jobcard_tecniconome: {$regex: controladorupper}}, {jobcard_tecniconome: pesquisador} ], $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, function(err, data){}).sort({data_ultimaactualizacaojobcard:1}).limit(50).lean();
-				
+				var data = await jobcards.find({jobcard_jobtype:"Callout", ttnumber_status:"Complete", $or:[{jobcard_ttnumber: ttnr}, {jobcard_site:{$regex:new RegExp(`${controlador}`), $options:'i'}}, {jobcard_tecniconome:{$regex:new RegExp(`${controlador}`)}}, {jobcard_linemanager: pesquisador}, {jobcard_tecniconome: pesquisador}]} ).sort({data_ultimaactualizacaojobcard:1}).limit(50).lean();
+			
 				res.render("view_manutencao", {DataU:userData, Jobcards:data, title: 'EAGLEI'});
 					
 			break;
@@ -21083,10 +21083,20 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 	});
 
 	
-	router.post("/updatecredelecdetails",  upload.any(), async function(req, res){
+	router.post("/updatecredelecdetails/:id",  upload.any(), async function(req, res){
 		var userData= req.session.usuario;
 		var jobcard = req.body;
-		
+		var id=req.params.id;
+		var jobcardphoto = [];
+		var directorio = "/Preventative_Maintenance";
+
+		if (req.files) {
+			let comprimento = req.files.length;
+			for (let i = 0; i < comprimento; i++) {
+				jobcardphotoinfo.push((directorio + req.files[i].filename));
+			}
+		}
+		console.log(jobcard)
 		var dia = ((new Date()).getDate()<10) ? ("0" + (new Date()).getDate()): ((new Date()).getDate());
 		var mes = (((new Date()).getMonth()+1)<10) ? ("0" + ((new Date()).getMonth()+1)): (((new Date()).getMonth())+1);
 		var ano = (new Date()).getFullYear();
@@ -21122,16 +21132,17 @@ router.post("/printplannedrefuelreport", upload.any(), async function(req, res){
 
 		jobcard.jobcard_audittrail = arrAudit;
 
+		// await jobcards.updateOne({_id:id}, {$push:{jobcardphotoinfo}});
 
-			jobcards.findOneAndUpdate({_id:jobcard.jobcard_id},{$set:{data_ultimaactualizacaojobcard:new Date(),jobcard_audittrail:jobcard.jobcard_audittrail}, $push:{jobcard_credelecinfo:{jobcard_currentkwh:jobcard.jobcard_currentkwh, jobcard_kwhafter:jobcard.jobcard_kwhafter, jobcard_amountadded:jobcard.jobcard_amountadded, jobcard_transactionr:jobcard.jobcard_transactionr, jobcard_credelecnr:jobcard.jobcard_credelecnr}}}, function(err, data){
-				if(err){
-					console.log("ocorreu um erro ao tentar aceder os dados")
-				}
-				else{
-					console.log("Update Credelec Info")
-					res.redirect("/inicio");
-				}
-			});
+			// jobcards.findOneAndUpdate({_id:jobcard.jobcard_id},{$set:{data_ultimaactualizacaojobcard:new Date(),jobcard_audittrail:jobcard.jobcard_audittrail}, $push:{jobcard_credelecinfo:{jobcard_currentkwh:jobcard.jobcard_currentkwh, jobcard_kwhafter:jobcard.jobcard_kwhafter, jobcard_amountadded:jobcard.jobcard_amountadded, jobcard_transactionr:jobcard.jobcard_transactionr, jobcard_credelecnr:jobcard.jobcard_credelecnr}}}, function(err, data){
+			// 	if(err){
+			// 		console.log("ocorreu um erro ao tentar aceder os dados")
+			// 	}
+			// 	else{
+			// 		console.log("Update Credelec Info")
+			// 		res.redirect("/inicio");
+			// 	}
+			// });
 		
 	});
 
@@ -27938,6 +27949,7 @@ router.get("/detalhesCredelecJobcard/:idjobcard",  function(req, res){
 		}
 	}).lean();
 });
+
 
 router.get("/detalhesCredelecJobcard/:idjobcard/:idindex",  function(req, res){
 	var userData= req.session.usuario;
