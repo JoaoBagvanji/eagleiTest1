@@ -7240,6 +7240,23 @@ var controle = $("input[name='travelinfo_proposito']:checked").val();
 		window.location.href="/manutencao/siteinfohome";
 	});
 
+	$("#verTabsSiteInfoTelco").click(function(){
+		window.location.href="/manutencao/siteinfohomeTelco"
+	})
+
+	$("#verTabsDataCenter").click(function(){
+		window.location.href="/manutencao/siteinfohomeDataCenter"
+	})
+
+	$("#verTabsElectricity").click(function(){
+		window.location.href="/manutencao/siteinfohomeElectricity"
+	})
+
+	
+	$("#verTabsClimatizacao").click(function(){
+		window.location.href="/manutencao/siteinfohomeClimatizacao"
+	})
+
 	$("#verTabsProjects").click(function(){
 		window.location.href="/manutencao/jobcardprojectshome";
 	});
@@ -34768,6 +34785,23 @@ var demoJson = {
 							"pt": "Info. de Site",
 							"en": "Site Info"
 					},
+					"telco":{
+						"pt": "Telco",
+						"en": "Telco"
+					},
+					"datacenter":{
+						"pt": "Centro de Dados",
+						"en": "Data Center"
+					},
+					"energia":{
+						"pt": "Energia",
+						"en": "Electricity"
+					},
+					"climatizacao":{
+						"pt": "Climatização",
+						"en": "Air Conditioning"
+					},
+
 
 					"jobcard": {
 							"pt": "Lista de Cartão de trabalho",
@@ -37021,6 +37055,68 @@ var demoJson = {
 							"pt": "Pagamento da Electricidade",
 							"en": "Electricity Payment"
 					}
+			},
+
+			"clientehvac": {
+				"nome_cliente": {
+							"pt": "Nome Cliente",
+							"en": "Client Name"
+					},
+
+				"regiao": {
+							"pt": "Região",
+							"en": "Region"
+					},
+
+				"provincia": {
+							"pt": "Província",
+							"en": "Province"
+					},
+				"listavazia": {
+						"pt": "Lista Vazia",
+						"en": "Empty List"
+				},
+				"listasiteenergia": {
+					"pt": "Lista de informação de Cliente",
+					"en": "Electricity information list"
+				},	
+			},
+
+			
+			"climatizacao": {
+				"planneddate": {
+							"pt": "Data Planeada",
+							"en": "Planned Date"
+					},
+
+				"prioridade": {
+							"pt": "Prioridade",
+							"en": "Priority"
+					},
+				"regiao": {
+					"pt": "Região",
+					"en": "Region"
+				},
+				"provincia": {
+							"pt": "Província",
+							"en": "Province"
+					},
+				"wait": {
+						"pt": "Em espera",
+						"en": "Waiting"
+				},
+				"cliente": {
+					"pt": "Cliente",
+					"en": "Client"
+				},
+				"listavazia": {
+					"pt": "Lista Vazia",
+					"en": "Empty List"
+				},
+				"listasiteclimatizacao": {
+					"pt": "Lista de informação de Climatizacao",
+					"en": "Air Condition information list"
+				},	
 			},
 			
 
