@@ -34153,6 +34153,11 @@ var demoJson = {
 						"en": "Maintenances"
 					},
 
+					"informacao":{
+						"pt": "Informações dos Sites",
+						"en": "Site Information"
+					},
+
 					"planned":{
 						"pt": "Planeada",
 						"en": "Planned"
@@ -35350,7 +35355,7 @@ var demoJson = {
 							"en": "Update Guard"
 					},
 
-				"client": {
+					"client": {
 							"pt": "Cliente Associado",
 							"en": "Associated Client"
 					},
@@ -35360,9 +35365,13 @@ var demoJson = {
 							"en": "Code"
 					},
 				
-				"sitedetails": {
+					"sitedetails": {
 							"pt": "Detalhes do Site",
 							"en": "Site Details"
+					},
+					"electricitydetails": {
+						"pt": "Detalhes de Energia",
+						"en": "Electicity Details"
 					},
 
 					"gerador": {
@@ -37732,6 +37741,10 @@ var demoJson = {
 					"sitedetails": {
 							"pt": "Detalhes do Site",
 							"en": "Site Details"
+					},
+					"electricitydetails": {
+						"pt": "Detalhes de Energia",
+						"en": "Electicity Details"
 					},
 
 					"dados_gerais": {

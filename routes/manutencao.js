@@ -1107,12 +1107,12 @@ router.post('/siteinfohomepesquisa', async function(req, res) {
 	}
 	
 	console.log(controladorupper, controlador);
-	siteinfos.find({$or:[{siteinfo_sitenum: ttnr}, {siteinfo_sitename: {$regex:pesquisador}}, {siteinfo_maintoff: pesquisador}, {siteinfo_regiaoselmec: {$regex:controladorupper}}, {siteinfo_maintoff: {$regex:controladorupper}}, {siteinfo_credelec:controlador}]}, function(err, data){
+	siteinfos.find({siteinfo_sitenum:{$nin:[1421,1551,2000,2504,4003,5506,6310]} ,$or:[{siteinfo_sitenum: ttnr}, {siteinfo_sitename: {$regex:pesquisador}}, {siteinfo_maintoff: pesquisador}, {siteinfo_regiaoselmec: {$regex:controladorupper}}, {siteinfo_maintoff: {$regex:controladorupper}}, {siteinfo_credelec:controlador}]}, function(err, data){
 		if(err){
 			console.log(err);
 		}
 		else{
-			res.render("siteinfo_home", {DataU:userData, Dadospesquisa:controlador, Siteinfos:data, title: 'EAGLEI'});
+			res.render("telco", {DataU:userData, Dadospesquisa:controlador, Siteinfos:data, title: 'EAGLEI'});
 		}
 	}).sort({ siteinfo_sitenum: 1 }).limit(50);
 	
@@ -1160,62 +1160,31 @@ router.get('/siteinfohome/nextpage/:contador/:totalnr', function(req, res) {
  
 });
 
-router.get('/siteinfohomeTelco', function(req, res) {
+router.get('/siteinfohomeTelco', async function(req, res) {
 	var userData=req.session.usuario;
 	var nome = userData.nome;
 
-	siteinfos.find({}, function(err, data){
-		if(err){
-			console.log("ocorreu um erro ao tentar aceder os dados")
-		}
-		else{
-			siteinfos.find({}, function(err, dataSiteInfo){
-				if(err){
+	var data = await siteinfos.find({siteinfo_sitenum:{$nin:[1421,1551,2000,2504,4003,5506,6310]}}, {}).sort({ siteinfo_sitenum: 1 }).limit(50);
+	var dataSiteInfo = await siteinfos.find({},);
+	var total = dataSiteInfo.length;
+	var totalcont = Math.ceil(dataSiteInfo.length/50);
 
-				}else{
+	res.render("telco", {DataU:userData, dadostotalnr:totalcont, dadoscontroladordecr:0,dadoscontroladorincr:1, Siteinfos:data, title: 'EAGLEI'});
 
-					var total = dataSiteInfo.length;
-					var totalcont = Math.ceil(dataSiteInfo.length/50);
-
-					res.render("telco", {DataU:userData, dadostotalnr:totalcont, dadoscontroladordecr:0,dadoscontroladorincr:1, Siteinfos:data, title: 'EAGLEI'});
-
-				}
-			});
-			
-		}
-	}).sort({ siteinfo_sitenum: 1 }).limit(50);
-	
  
 });
 
-router.get('/siteinfohomeDataCenter', function(req, res) {
+router.get('/siteinfohomeDataCenter', async function(req, res) {
 	var userData=req.session.usuario;
 	var nome = userData.nome;
-	if((userData.nome == "Teresa Guimaraes" ) || (userData.nivel_acesso == "admin") || (userData.funcao == "Manager")){
-		siteinfos.find({}, function(err, data){
-			if(err){
-				console.log("ocorreu um erro ao tentar aceder os dados")
-			}
-			else{
-				siteinfos.find({}, function(err, dataSiteInfo){
-					if(err){
+		var data = await siteinfos.find({siteinfo_sitenum:{$in:[1421,1551,2000,2504,4003,5506,6310]}}, {}).sort({ siteinfo_sitenum: 1 }).limit(50);
+		var dataSiteInfo = await siteinfos.find({siteinfo_sitenum:{$in:[1421,1551,2000,2504,4003,5506,6310]}},{});
 	
-					}else{
-	
-						var total = dataSiteInfo.length;
-						var totalcont = Math.ceil(dataSiteInfo.length/50);
-	
-						res.render("datacenter", {DataU:userData, dadostotalnr:totalcont, dadoscontroladordecr:0,dadoscontroladorincr:1, Siteinfos:data, title: 'EAGLEI'});
-	
-					}
-				});
-				
-			}
-		}).sort({ siteinfo_sitenum: 1 }).limit(50);
-	}
-	else{
-		console.log('Nao e para ti')
-	}
+		var total = dataSiteInfo.length;
+		var totalcont = Math.ceil(dataSiteInfo.length/50);
+
+		res.render("datacenter", {DataU:userData, dadostotalnr:totalcont, dadoscontroladordecr:0,dadoscontroladorincr:1, Siteinfos:data, title: 'EAGLEI'});	
+		
 });
 
 router.get('/siteinfohomeElectricity', function(req, res){
@@ -30452,6 +30421,47 @@ router.get("/editarSite/:id",  function(req, res){
 									var listaareas = listaprovincia[dataSiteInfo[0].siteinfo_regiao];
 									console.log(listaareas);
 									res.render("site_infoedit", {DataU:userData, ListaAreas: listaareas, Clientes:dataClientes, ListaSites:dataSiteInfoLista, Clientes1:JSON.stringify(dataClientes), Usuarios:dataUsuarios, Usuarios1:JSON.stringify(dataUsuarios), Siteinfos: dataSiteInfo, Siteinfos1:JSON.stringify(dataSiteInfo), title: 'EAGLEI'})
+								}
+							});
+						}
+					}).sort({siteinfo_sitenum:1});
+					
+				}
+			}).sort({nome:1});
+			
+		}
+
+	}).sort({cliente_nome:1});
+
+});
+
+router.get("/editarElectricidade/:id",  function(req, res){
+	var userData= req.session.usuario;
+
+	clientes.find({}, function(err, dataClientes){
+
+		if(err){
+			console.log("Ocorreu um erro ao tentar gravar os dados!\n contacte o administrador do sistema");
+			console.log(err)
+		}else{
+			usuarios.find({}, function(err, dataUsuarios){
+				if(err){
+					console.log("Ocorreu um erro ao tentar gravar os dados!\n contacte o administrador do sistema");
+					console.log(err)
+				}else{
+					cliente_hvac_db.find({}, function(err, dataSiteInfoLista){
+						if(err){
+							console.log("Ocorreu um erro ao tentar gravar os dados!\n contacte o administrador do sistema");
+							console.log(err)
+						}else{
+							cliente_hvac_db.find({_id:req.params.id}, function(err, dataSiteInfo){
+								if(err){
+									console.log("Ocorreu um erro ao tentar gravar os dados!\n contacte o administrador do sistema");
+									console.log(err)
+								}else{
+									var listaareas = listaprovincia[dataSiteInfo[0].siteinfo_regiao];
+									console.log(listaareas);
+									res.render("site_infoedit", {DataU:userData, ListaAreas: listaareas, Clientes:dataClientes, ListaSites:dataSiteInfoLista, Clientes1:JSON.stringify(dataClientes), Usuarios:dataUsuarios, Usuarios1:JSON.stringify(dataUsuarios), Cliente_hvac_db: dataSiteInfo, Cliente_hvac_db1:JSON.stringify(dataSiteInfo), title: 'EAGLEI'})
 								}
 							});
 						}
