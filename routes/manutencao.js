@@ -6650,6 +6650,9 @@ router.post('/preventativemaintcompletepesquisa', async function(req, res) {
 	var pesquisador = siteinfocont.pesquisadorsite;
 	var controlador = tthomecont.pesquisador;
 	var admin_case=await admin_db.find({});
+	var firstLetter = controlador.charAt(0).toUpperCase();
+	var rest = controlador.slice(1);
+	var controladorupper = firstLetter.concat(rest);
 
 
 	if(isNaN(controlador)){
@@ -6707,9 +6710,9 @@ router.post('/preventativemaintcompletepesquisa', async function(req, res) {
 			break;
 
 			case 2:
-				data = await jobcards.find({jobcard_jobtype:"Preventative Maintenance", ttnumber_status:"Complete", $or:[{jobcard_site:controlador}, {jobcard_ttnumber: ttnr}, {jobcard_tecniconome: {$regex: controladorupper}}, {jobcard_tecniconome: pesquisador} ], $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, function(err, data){}).sort({data_ultimaactualizacaojobcard:1}).limit(50).lean();
-				
-				res.render("maintplan_homecomplete", {DataU:userData, Jobcards:data, title: 'EAGLEI'});
+				var data = await jobcards.find({jobcard_jobtype:"Preventative Maintenance", ttnumber_status:"Complete", $or:[{jobcard_site:controlador}, {jobcard_ttnumber: ttnr}, {jobcard_tecniconome: {$regex: controladorupper}}, {jobcard_tecniconome: pesquisador} ]}, function(err, data){}).sort({data_ultimaactualizacaojobcard:1}).limit(50).lean();
+			
+				res.render("view_manutencao", {DataU:userData, Jobcards:data, title: 'EAGLEI'});
 					
 			break;
 		
