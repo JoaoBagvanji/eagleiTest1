@@ -7240,6 +7240,23 @@ var controle = $("input[name='travelinfo_proposito']:checked").val();
 		window.location.href="/manutencao/siteinfohome";
 	});
 
+	$("#verTabsSiteInfoTelco").click(function(){
+		window.location.href="/manutencao/siteinfohomeTelco"
+	})
+
+	$("#verTabsDataCenter").click(function(){
+		window.location.href="/manutencao/siteinfohomeDataCenter"
+	})
+
+	$("#verTabsElectricity").click(function(){
+		window.location.href="/manutencao/siteinfohomeElectricity"
+	})
+
+	
+	$("#verTabsClimatizacao").click(function(){
+		window.location.href="/manutencao/siteinfohomeClimatizacao"
+	})
+
 	$("#verTabsProjects").click(function(){
 		window.location.href="/manutencao/jobcardprojectshome";
 	});
@@ -12212,10 +12229,12 @@ $('.captarinqueritoair').click(function(){
  });
 
  $('#jobcardcredlecinfo_yes_btn').click(function(){
-
-		
+		// var jobcardphotoinfo = arrJobcard_photoMaint;
+		// var timett = jobcardphotoinfo.length*120000;
+		// $('#loading').fadeIn().delay(timett).fadeOut();
 		var referencia = $("#recolherdados").attr("dadosreferenciajobcard");
 		var dadojobtype = $("#recolherdados").attr("dadosjobtype");
+
 		
 
 		if(($("#jobcard_currentkwh").val() == "") || ($("#jobcard_kwhafter").val() == "") || ($("#jobcard_amountadded").val() == "") || ($("#jobcard_transactionr").val() == "") || ($("#jobcard_credelecnr").val() == "") ){
@@ -12239,9 +12258,10 @@ $('.captarinqueritoair').click(function(){
 						 $('#loading').fadeIn().delay(20000).fadeOut();
 						 
 						 var jobcardformdata = new FormData();
-						 
-
-							var rule="/manutencao/updatecredelecdetails";
+						
+							var rule="/manutencao/updatecredelecdetails/"+referencia;
+							var jobcard_credelec=$("#jobcardphotoinfo").get(0).files;
+							jobcardformdata.append("jobcard_credelec", jobcard_credelec[0]);
 
 							var jobcard_id = referencia;
 							jobcardformdata.append("jobcard_id", jobcard_id);
@@ -34765,6 +34785,23 @@ var demoJson = {
 							"pt": "Info. de Site",
 							"en": "Site Info"
 					},
+					"telco":{
+						"pt": "Telco",
+						"en": "Telco"
+					},
+					"datacenter":{
+						"pt": "Centro de Dados",
+						"en": "Data Center"
+					},
+					"energia":{
+						"pt": "Energia",
+						"en": "Electricity"
+					},
+					"climatizacao":{
+						"pt": "Climatização",
+						"en": "Air Conditioning"
+					},
+
 
 					"jobcard": {
 							"pt": "Lista de Cartão de trabalho",
@@ -37018,6 +37055,68 @@ var demoJson = {
 							"pt": "Pagamento da Electricidade",
 							"en": "Electricity Payment"
 					}
+			},
+
+			"clientehvac": {
+				"nome_cliente": {
+							"pt": "Nome Cliente",
+							"en": "Client Name"
+					},
+
+				"regiao": {
+							"pt": "Região",
+							"en": "Region"
+					},
+
+				"provincia": {
+							"pt": "Província",
+							"en": "Province"
+					},
+				"listavazia": {
+						"pt": "Lista Vazia",
+						"en": "Empty List"
+				},
+				"listasiteenergia": {
+					"pt": "Lista de informação de Cliente",
+					"en": "Electricity information list"
+				},	
+			},
+
+			
+			"climatizacao": {
+				"planneddate": {
+							"pt": "Data Planeada",
+							"en": "Planned Date"
+					},
+
+				"prioridade": {
+							"pt": "Prioridade",
+							"en": "Priority"
+					},
+				"regiao": {
+					"pt": "Região",
+					"en": "Region"
+				},
+				"provincia": {
+							"pt": "Província",
+							"en": "Province"
+					},
+				"wait": {
+						"pt": "Em espera",
+						"en": "Waiting"
+				},
+				"cliente": {
+					"pt": "Cliente",
+					"en": "Client"
+				},
+				"listavazia": {
+					"pt": "Lista Vazia",
+					"en": "Empty List"
+				},
+				"listasiteclimatizacao": {
+					"pt": "Lista de informação de Climatizacao",
+					"en": "Air Condition information list"
+				},	
 			},
 			
 

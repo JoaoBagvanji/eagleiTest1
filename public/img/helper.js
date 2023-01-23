@@ -19131,6 +19131,10 @@ function redirecionar(){
                 "pt": "Info. de Site",
                 "en": "Site Info"
             },
+            "telco":{
+              "pt": "Telco",
+              "en": "Telco"
+            },
 
             "jobcard": {
                 "pt": "Lista de Cartão de trabalho",

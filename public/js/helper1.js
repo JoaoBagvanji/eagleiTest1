@@ -33728,6 +33728,23 @@ var demoJson = {
 							"pt": "Info. de Site",
 							"en": "Site Info"
 					},
+					"telco":{
+						"pt": "Telco",
+						"en": "Telco"
+					},
+					"datacenter":{
+						"pt": "Centro de Dados",
+						"en": "Data Center"
+					},
+					"energia":{
+						"pt": "Energia",
+						"en": "Electricity"
+					},
+					"climatizacao":{
+						"pt": "Climatização",
+						"en": "Air Conditioning"
+					},
+
 
 					"jobcard": {
 							"pt": "Lista de Cartão de trabalho",
