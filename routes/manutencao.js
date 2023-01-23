@@ -12002,27 +12002,35 @@ router.get("/detalhesJobcardCallOut/:id",  function(req, res){
 router.get("/detalhesDevolverJobcardhvac/:id",  function(req, res){
 	var userData= req.session.usuario;
 
-	hvac_db.find({_id:req.params.id}, {tecnico:1, cliente:1}, function(err, data){
-		if(err){
+	var data = hvac_db.find({_id:req.params.id}, {tecnico:1, cliente:1}, function(err, data){
+		if(err)
 			console.log("ocorreu um erro ao tentar aceder os dados")
-		}
 		else{
 			console.log("11111")
-			console.log(data)
 			if(data.length>0)
 				res.render("hvac_detalhesDevolverJobcard", {DataU:userData, Jobcards:data, title: 'EAGLEI'});
 			else{
 				energia.find({_id:req.params.id}, {tecnico:1, cliente:1}, function(err, data){
 					if(err)
 						console.log("erro")
-					else 
+					else {
+						if(data.lentgh>0)
 						res.render("hvac_detalhesDevolverJobcard", {DataU:userData, Jobcards:data, title: 'EAGLEI'}); 
-					});
-				}
-			}
-	}).lean();
+						else{
+								hvac_projects.find({_id:req.params.id}, {tecnico:1, cliente:1}, function(err, data){
+									console.log("In hvac_Projects");
+									console.log(data);
+								res.render("hvac_detalhesDevolverJobcard", {DataU:userData, Jobcards:data, title: 'EAGLEI'}); 
+								});
+						}
+						
+							
+					}
+				});
+			}}}).lean();
+		});
 
-});
+
 
 
 // router.post("/sendbackjobcardhvac",  uploadcallhvac.any(), async function(req, res){
@@ -12128,6 +12136,8 @@ router.post("/sendbackjobcardhvac",  uploadcallhvac.any(), async function(req, r
 	var procurajobcard = await hvac_db.findOne({_id:id});
 	if(procurajobcard== null)
 		var procurajobcard = await energia.findOne({_id:id});
+	if(procurajobcard== null)
+		var procurajobcard = await hvac_projects.findOne({_id:id});
 
 	var callcenter = await users_db.find({funcao:"Call Center"}, {email:1});
 	for(var i = 0; i<callcenter.length; i++){
@@ -12143,7 +12153,9 @@ router.post("/sendbackjobcardhvac",  uploadcallhvac.any(), async function(req, r
 	var procura = await hvac_db.findOne({_id:jobcard.jobcard_id}, {jobcard_tecnicoid:1, jobcard_clientenome:1, jobcard_clienteid:1, jobcard_cod:1, jobcard_site:1, criado_por:1}).lean();
 	if(procura ==null)
 		var procura = await energia.findOne({_id:jobcard.jobcard_id}, {jobcard_tecnicoid:1, jobcard_clientenome:1, jobcard_clienteid:1, jobcard_cod:1, jobcard_site:1, criado_por:1}, function(err, data){});
-
+	if(procura ==null)
+		var procura = await hvac_projects.findOne({_id:jobcard.jobcard_id}, {jobcard_tecnicoid:1, jobcard_clientenome:1, jobcard_clienteid:1, jobcard_cod:1, jobcard_site:1, criado_por:1}, function(err, data){});
+ 
 	var procurauser = await model.findOne({_id:procura.tecnicoid}, {idioma:1, email:1}).lean();
 
 

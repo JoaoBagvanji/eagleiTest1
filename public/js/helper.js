@@ -7556,7 +7556,7 @@ var controle = $("input[name='travelinfo_proposito']:checked").val();
 
 	});
 
-	$('.detalhesDevolverJobcardProject').click(function(){
+	$('#detalhesDevolverJobcardProject').click(function(){
 		var referencia =$(this).attr("data-user-new"); 
 		 $('#loading').fadeIn().delay(20000).fadeOut();
 
@@ -7689,8 +7689,14 @@ var controle = $("input[name='travelinfo_proposito']:checked").val();
 						setTimeout(function(){
 							if(dadojobtype=="Callout")
 								window.location.href="/manutencao/ttnumberhome/inprogress";
-							else
-								window.location.href="/manutencao/preventativehome/inprogress";
+							
+							if(dadojobtype=="Project")
+									window.location.href="/manutencao/jobcardprojectshome/inprogress";
+							
+							if(dadojobtype=="Preventative Maintenance")
+									window.location.href="/manutencao/preventativehome/inprogress";
+							
+								
 						}, 3000);
 				});
 		}

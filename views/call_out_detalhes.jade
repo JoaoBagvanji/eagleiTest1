@@ -731,8 +731,8 @@ block content
 						if(DataU.nome == "David De Almeida" || DataU.funcao == "Call Center" || DataU.funcao =="Rogerio Galrito")
 							input.editjobcard_project(type="button", name="submit", class="submit action-button", value="Update Jobcard" style="width:180px")
 						-if((Carregado[0].jobcard_audittrail.length>3 && Carregado[0].jobcard_estadoactual != "Approved" && Carregado[0].jobcard_estadoactual != "Sent back") && (Carregado[0].ttnumber_status == "In Progress") && DataU.funcao != "Tecnico" )
-							button#aprovarcallouthvac(type="button", data-user-new="#{Carregado[0]._id}",  datajobtype="#{Carregado[0].jobcard_jobtype}", class="btn waves-efect waves-light activarAzul", style="margin:22px") Aprovar
-							button#sendbackcallouthvac(type="button", data-user-new="#{Carregado[0]._id}", href = "/manutencao/detalhesDevolverJobcardhvac/#{Carregado[0]._id}" ,class="btn waves-efect waves-light activarAzul", style="margin:0px") Devolver
+							button#aprovarjobcardproject(type="button", data-user-new="#{Carregado[0]._id}",  datajobtype="#{Carregado[0].jobcard_jobtype}", class="btn waves-efect waves-light activarAzul", style="margin:22px") Aprovar
+							button#detalhesDevolverJobcardProject(type="button", data-user-new="#{Carregado[0]._id}" ,class="btn waves-efect waves-light activarAzul", style="margin:0px") Devolver
 							
 		block js
 
