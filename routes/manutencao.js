@@ -1160,7 +1160,7 @@ router.get('/siteinfohome/nextpage/:contador/:totalnr', function(req, res) {
  
 });
 
-router.get('/siteinfohome', function(req, res) {
+router.get('/siteinfohomeTelco', function(req, res) {
 	var userData=req.session.usuario;
 	var nome = userData.nome;
 
@@ -1177,7 +1177,7 @@ router.get('/siteinfohome', function(req, res) {
 					var total = dataSiteInfo.length;
 					var totalcont = Math.ceil(dataSiteInfo.length/50);
 
-					res.render("siteinfo_home", {DataU:userData, dadostotalnr:totalcont, dadoscontroladordecr:0,dadoscontroladorincr:1, Siteinfos:data, title: 'EAGLEI'});
+					res.render("telco", {DataU:userData, dadostotalnr:totalcont, dadoscontroladordecr:0,dadoscontroladorincr:1, Siteinfos:data, title: 'EAGLEI'});
 
 				}
 			});
@@ -1187,6 +1187,90 @@ router.get('/siteinfohome', function(req, res) {
 	
  
 });
+
+router.get('/siteinfohomeDataCenter', function(req, res) {
+	var userData=req.session.usuario;
+	var nome = userData.nome;
+	if((userData.nome == "Teresa Guimaraes" ) || (userData.nivel_acesso == "admin") || (userData.funcao == "Manager")){
+		siteinfos.find({}, function(err, data){
+			if(err){
+				console.log("ocorreu um erro ao tentar aceder os dados")
+			}
+			else{
+				siteinfos.find({}, function(err, dataSiteInfo){
+					if(err){
+	
+					}else{
+	
+						var total = dataSiteInfo.length;
+						var totalcont = Math.ceil(dataSiteInfo.length/50);
+	
+						res.render("datacenter", {DataU:userData, dadostotalnr:totalcont, dadoscontroladordecr:0,dadoscontroladorincr:1, Siteinfos:data, title: 'EAGLEI'});
+	
+					}
+				});
+				
+			}
+		}).sort({ siteinfo_sitenum: 1 }).limit(50);
+	}
+	else{
+		console.log('Nao e para ti')
+	}
+});
+
+router.get('/siteinfohomeElectricity', function(req, res){
+	var userData=req.session.usuario;
+	var nome = userData.nome;
+	cliente_hvac_db.find({}, function(err, data){
+		if(err){
+			console.log("ocorreu um erro ao tentar aceder os dados")
+		}
+		else{
+			cliente_hvac_db.find({}, function(err, dataSiteInfo){
+				if(err){
+
+				}else{
+
+					var total = dataSiteInfo.length;
+					var totalcont = Math.ceil(dataSiteInfo.length/50);
+
+					res.render("electricity", {DataU:userData, dadostotalnr:totalcont, dadoscontroladordecr:0,dadoscontroladorincr:1, Cliente_hvac_db:data, title: 'EAGLEI'});
+
+				}
+			});
+			
+		}
+	}).sort({ siteinfo_sitenum: 1 }).limit(50);
+})
+
+router.get('/siteinfohomeClimatizacao', function(req, res){
+	var userData=req.session.usuario;
+	var nome = userData.nome;
+	cliente_hvac_db.find({}, function(err, data){
+		if(err){
+			console.log("ocorreu um erro ao tentar aceder os dados")
+		}
+		else{
+			cliente_hvac_db.find({}, function(err, dataSiteInfo){
+				if(err){
+
+				}else{
+
+					var total = dataSiteInfo.length;
+					var totalcont = Math.ceil(dataSiteInfo.length/50);
+
+					res.render("climatizacao", {DataU:userData, dadostotalnr:totalcont, dadoscontroladordecr:0,dadoscontroladorincr:1, Cliente_hvac_db:data, title: 'EAGLEI'});
+
+				}
+			});
+			
+		}
+	}).sort({ siteinfo_sitenum: 1 }).limit(50);
+})
+router.get('/siteinfohome', function(req, res){
+	var userData = req.session.usuario;
+	res.render('siteinfo_home', {DataU:userData, title: 'EAGLEI'});
+})
 
 router.get('/maintenancereports',async function(req, res) {
 	var userData=req.session.usuario;
@@ -6566,6 +6650,9 @@ router.post('/preventativemaintcompletepesquisa', async function(req, res) {
 	var pesquisador = siteinfocont.pesquisadorsite;
 	var controlador = tthomecont.pesquisador;
 	var admin_case=await admin_db.find({});
+	var firstLetter = controlador.charAt(0).toUpperCase();
+	var rest = controlador.slice(1);
+	var controladorupper = firstLetter.concat(rest);
 
 
 	if(isNaN(controlador)){
@@ -6623,9 +6710,9 @@ router.post('/preventativemaintcompletepesquisa', async function(req, res) {
 			break;
 
 			case 2:
-				data = await jobcards.find({jobcard_jobtype:"Preventative Maintenance", ttnumber_status:"Complete", $or:[{jobcard_site:controlador}, {jobcard_ttnumber: ttnr}, {jobcard_tecniconome: {$regex: controladorupper}}, {jobcard_tecniconome: pesquisador} ], $or:[{jobcard_linemanager:nome}, {jobcard_tecniconome:nome}]}, function(err, data){}).sort({data_ultimaactualizacaojobcard:1}).limit(50).lean();
-				
-				res.render("maintplan_homecomplete", {DataU:userData, Jobcards:data, title: 'EAGLEI'});
+				var data = await jobcards.find({jobcard_jobtype:"Preventative Maintenance", ttnumber_status:"Complete", $or:[{jobcard_site:controlador}, {jobcard_ttnumber: ttnr}, {jobcard_tecniconome: {$regex: controladorupper}}, {jobcard_tecniconome: pesquisador} ]}, function(err, data){}).sort({data_ultimaactualizacaojobcard:1}).limit(50).lean();
+			
+				res.render("view_manutencao", {DataU:userData, Jobcards:data, title: 'EAGLEI'});
 					
 			break;
 		
