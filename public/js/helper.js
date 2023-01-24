@@ -16775,6 +16775,12 @@ $('.captarinqueritoair').click(function(){
       };
  });
 
+
+
+
+
+
+ 
 	$('.concernsModal').click(function(){
 
 		var referencia = $(this).attr("dataref");
