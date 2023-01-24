@@ -1133,7 +1133,7 @@ router.get('/siteinfohome/previouspage/:contador/:totalnr', function(req, res) {
 			console.log("ocorreu um erro ao tentar aceder os dados")
 		}
 		else{
-			res.render("siteinfo_home", {DataU:userData, dadostotalnr:parseInt(req.params.totalnr), dadoscontroladordecr:incrementadr, dadoscontroladorincr:parseInt(req.params.contador), Siteinfos:data, title: 'EAGLEI'});
+			res.render("telco", {DataU:userData, dadostotalnr:parseInt(req.params.totalnr), dadoscontroladordecr:incrementadr, dadoscontroladorincr:parseInt(req.params.contador), Siteinfos:data, title: 'EAGLEI'});
 		}
 	}).sort({ siteinfo_sitenum: 1 }).skip(contador).limit(50);
 	
@@ -1153,7 +1153,7 @@ router.get('/siteinfohome/nextpage/:contador/:totalnr', function(req, res) {
 			console.log("ocorreu um erro ao tentar aceder os dados")
 		}
 		else{
-			res.render("siteinfo_home", {DataU:userData, dadostotalnr:parseInt(req.params.totalnr) ,dadoscontroladordecr:parseInt(req.params.contador),dadoscontroladorincr:incrementadr, Siteinfos:data, title: 'EAGLEI'});
+			res.render("telco", {DataU:userData, dadostotalnr:parseInt(req.params.totalnr) ,dadoscontroladordecr:parseInt(req.params.contador),dadoscontroladorincr:incrementadr, Siteinfos:data, title: 'EAGLEI'});
 		}
 	}).sort({ siteinfo_sitenum: 1 }).skip(contador).limit(50);
 	

@@ -30,15 +30,18 @@ block content
 						thead
 							tr.selmecAzul
 								th <span data-i18n="demo.clientehvac.nome_cliente"></span>
-								th <span data-i18n="demo.clientehvac.regiao"></span>
+								th <span data-i18n="demo.clientehvac.morada"></span>
 								th <span data-i18n="demo.clientehvac.provincia"></span>
+								th <span data-i18n="demo.clientehvac.regiao"></span>	
 								th
 						tbody(id="myTable")
 							-for(var index = 0; index < Cliente_hvac_db.length; index++)
-								tr.highlight(style="font-family:;color:#12375c")
+								tr.highlight(style="font-family:;color:#12375c")									
 									td #{Cliente_hvac_db[index].nome_cliente}
-									td #{Cliente_hvac_db[index].regiao}
+									td #{Cliente_hvac_db[index].rua}
 									td #{Cliente_hvac_db[index].provincia}
+									td #{Cliente_hvac_db[index].regiao}
+									
 									td.center-align
 										-if(DataU.nome == "Guest")
 											a.tooltipped.pointer.info(style="margin-left: 15px", data-position="top", data-delay="10", href="/manutencao/detalhesSiteinfo/#{Cliente_hvac_db[index]._id}", data-tooltip="Site Details") <i class="material-icons activarVerde">info</i>

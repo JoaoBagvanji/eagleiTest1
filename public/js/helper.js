@@ -34807,15 +34807,15 @@ var demoJson = {
 						"en": "Telco"
 					},
 					"datacenter":{
-						"pt": "Centro de Dados",
+						"pt": "DCD",
 						"en": "Data Center"
 					},
 					"energia":{
-						"pt": "Energia",
+						"pt": "DE",
 						"en": "Electricity"
 					},
 					"climatizacao":{
-						"pt": "Climatização",
+						"pt": "DCE",
 						"en": "Air Conditioning"
 					},
 
@@ -37083,6 +37083,11 @@ var demoJson = {
 							"pt": "Nome Cliente",
 							"en": "Client Name"
 					},
+
+				"morada": {
+						"pt": "Morada",
+						"en": "address"
+				},
 
 				"regiao": {
 							"pt": "Região",
