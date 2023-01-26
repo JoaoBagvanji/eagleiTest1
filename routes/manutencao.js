@@ -11966,7 +11966,6 @@ router.get("/detalhesAccaoCallcenter/:id",  function(req, res){
 
 
 router.get("/detalhesJobcardCallOut/:id",  function(req, res){
-
 	var userData= req.session.usuario;
 	var callarray = ["Radio", "Transmission", "Power", "Civil", "Core-data center"];
 	var infoarr = ["Falha de energia", "Temperatura Alta", "Bateria com carga baixa", "Gerador em anomalia", "Nivel baixo de combustivel", "Falha do Sistema de Retificador", "Transmissao", "Radio", "Gerador em funcionamento", "Sistema de Incendio", "Sensor de movimento", "Outro"];
@@ -14630,13 +14629,9 @@ router.get("/detalhesConcernsModal/:id",  function(req, res){
 
 	});
 	
-
-
-
 router.post("/updatephotoinfoHvacInfo/:id",  uploadcallhvac.any(), async function(req, res){
 	var userData= req.session.usuario;
 	var id = req.params.id;
-
 	var photoinfo = [];
 
 	var dia = ((new Date()).getDate()<10) ? ("0" + (new Date()).getDate()): ((new Date()).getDate());
@@ -14673,17 +14668,11 @@ router.post("/updatephotoinfoHvacInfo/:id",  uploadcallhvac.any(), async functio
 
 	var data = await hvac_db.updateOne({_id:id},{$set:{data_ultimaactualizacaojobcard:new Date()}, $push:{photoinfo, jobcard_audittrail:jobcard_audittrailObject}});
 	if(data.n==0)
-		var data = await energia.updateOne({_id:id},{$set:{data_ultimaactualizacaojobcard:new Date()}, $push:{photoinfo, jobcard_audittrail:jobcard_audittrailObject}});
-	if(data.n==0)
-		var data = await hvac_projects.updateOne({_id:id},{$set:{data_ultimaactualizacaojobcard:new Date()}, $push:{photoinfo, jobcard_audittrail:jobcard_audittrailObject}});
-	
-		console.log("Photo Info done");
+		var data = await energia.updateOne({_id:id},{$set:{data_ultimaactualizacaojobcard:new Date()}, $push:{photoinfo, jobcard_audittrail:jobcard_audittrailObject}})
+	console.log("Photo Info done")
 	res.redirect("/inicio");
 	
 });
-
-
-
 
 	router.post("/gravarassinaturahvacjobcard", uploadhvac.any(), async function(req, res){
 		var userData= req.session.usuario;
