@@ -12024,7 +12024,7 @@ router.get("/detalhesJobcardCallOut/:id",  function(req, res){
 										}));
 									}
 
-									jobcards.find({_id:{$ne:req.params.id}, jobcard_ttnumber:{$ne:0}}, {jobcard_ttnumber:1}, function(err, dadosjobcards){
+									jobcards.find({_id:{$ne:req.params.id}, jobcard_ttnumber:{$ne:0}, jobcardphotoinfo:{$ne:0}}, {jobcard_ttnumber:1}, {jobcardphotoinfo:1}, function(err, dadosjobcards){
 										if(err){
 											console.log("ocorreu um erro ao tentar aceder os dados" + err)
 										}else{

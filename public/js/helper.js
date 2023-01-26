@@ -575,7 +575,7 @@ $(document).ready(function(){
 				//mostrar os ficheiros na tela
 				var fileName = teste[i].name.split(".")[0];
 				var tt = document.getElementById("edBoardOb4");
-				tt.innerHTML += '<tr><td>' + fileName + '</td><td><a class="tooltipped pointer info eliminar"><i class="material-icons left selmecAzul">clear</i></a></td></tr>';
+				tt.innerHTML += '<tr><td>' + fileName + '</td><td><a class="tooltipped pointer info eliminar"><i class="material-icons left verimagem">clear</i></a></td></tr>';
 				fileReader.readAsText(f);
 			}
 			// console.log(arrDBoardSleeves);
@@ -2760,6 +2760,7 @@ $(document).ready(function(){
 	var travelinfoArray = [];
 	var travelsiteinfoArray = [];
 	var generatorJobcardArray = [];
+	var jobcardPhotosArray = [];
 	var equipamentoArray = [];
 	var sparesArray = [];
 
@@ -3763,6 +3764,12 @@ var controle = $("input[name='travelinfo_proposito']:checked").val();
 
 
 	});
+
+
+
+
+
+
 
 
 
@@ -20561,6 +20568,15 @@ acao1.append('ano_aquisicao', ano_aquisicao);
 
 });
 
+
+
+
+
+
+
+
+
+
 $("#registar_novoDBowser").click(function(){ 
 
 var dieselbowser=$("#dbowser").val();
@@ -22327,7 +22343,7 @@ $(".securedetails").click(function(){
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++imagem magnific++++++++++++++++++++++++++++++++++++++++++
 $('.verimagem').click(function(){
-	
+	console.log("Chegou no metodo ver imagem");
 	var dir = $(this).attr('src');
 	console.log(dir);
 	$('#image_modal').html('<img class="center" style="width:80%; height:80%; padding-top:10px" src='+dir+'>')
@@ -22335,6 +22351,32 @@ $('.verimagem').click(function(){
 });
 
 
+
+$('#apagarimagem').click(function(){
+	var fotosArray = [];
+	fotosArray = JSON.parse($("#recolherdados").attr("dadosJobcards"));
+	console.log("ARRAY de FOTOS");
+	console.log(fotosArray);
+
+	var alvo = $(this).attr('value');
+	console.log("ALVO");
+	console.log(alvo);
+
+	var index = fotosArray.indexOf(alvo);
+	console.log("INDEX");
+	console.log(index);
+
+	fotosArray = fotosArray.filter(fotosArray => fotosArray !=  alvo);
+
+
+	  console.log("Novo ARRAY de FOTOS");
+	  console.log(fotosArray);
+
+	  $(this).remove();
+	  $(this).parent('img').remove();
+	  
+	//window.location.href="/manutencao/ttnumberhome/inprogress"
+});
 
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++end imagem magnific++++++++++++++++++++++++++++++++++++++

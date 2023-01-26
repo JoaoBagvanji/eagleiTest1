@@ -11,8 +11,8 @@ block content
 			-else
 				div(class="fixed-action-btn horizontal fixed-add-bottom")
 					a.tooltipped.verde-policial-bg.activarAzul(data-position="left", data-delay="10", data-tooltip="Back", class="btn-floating btn-large waves-effect waves-light" href="/manutencao/ttnumberhome/complete") <i class=" activarAzul material-icons">reply</i>
-	.row#recolherdados(detalhesclientessite="#{DadosSiteCliente}" detalhesclientes="#{DadosClientes}")
-		form(id="formulario2", method="POST")
+	.row#recolherdados(detalhesclientessite="#{DadosSiteCliente}" detalhesclientes="#{DadosClientes}" dadosJobcards="#{JSON.stringify(Jobcards[0].jobcardphotoinfo)}")
+			form(id="formulario2", method="POST")
 			ul(id="progressbar2" style="margin-bottom:0px")
 				li.jobcardinfoIcon(class="active" style="user-select:none") <span class="hide-on-small-only"><span data-i18n="demo.manutencao_form.basicinfo"></span></span><span class="hide-on-med-only"> <img class="hide-on-med-and-up" src="/img/siteinfo.png" style="width:20px">
 				li.jobcardinfoIcon(style="user-select:none") <span class="hide-on-small-only"><span data-i18n="demo.manutencao_form.cliente"></span></span><span class="hide-on-med-only"> <img class="hide-on-med-and-up" src="/img/profile3.png" style="width:20px">
@@ -909,14 +909,17 @@ block content
 											a.tooltipped.pointer.mostrardetalhesSpares(style="margin-left: 25px", data-position="top", data-delay="10", datareferencia="#{Jobcards[0]._id}", posicao="#{index}", data-tooltip="Details of Spare Used" dataspareusadoarray = "#{Jobcards[0].sparesArrayJobcard[index]._id}" data-user-name="#{Jobcards[0].jobcard_tecnicoid}") <i class="material-icons activarVerde">info</i>
 					//- input(type="button", name="previous", class="previous action-button", value="<< Prev")
 					//- input(type="button", name="next", class="next action-button", value="Next >>")
+			
 			if(Jobcards[0].jobcardphotoinfo.length !=0)
-				fieldset(style="padding:25px;")
-					row(style="margin-bottom:20px")
-						.col.s12.m12.input-field
-							-for(let i=0; i<(Jobcards[0].jobcardphotoinfo.length); i++)
-								img.verimagem(style="width:100px; margin: 20px;" , src="#{Jobcards[0].jobcardphotoinfo[i]}")
-					//- input(type="button", name="previous", class="previous action-button", value="<< Prev")
-					//- input(type="button", name="next", class="next action-button", value="Next >>")
+				fieldset(style="padding:5px;")
+					tbody
+						-for(let i=0; i<(Jobcards[0].jobcardphotoinfo.length); i++)	
+								tr.highlight(style="font-family:;color:#12375c")
+										td 
+											img.verimagem(style="width:100px; margin: 20px;" , src="#{Jobcards[0].jobcardphotoinfo[i]}")
+											butoon(value="#{Jobcards[0].jobcardphotoinfo[i]}" style="width:5px;" type="button", id="apagarimagem" class="btn transparent") <i class="material-icons left selmecAzul">delete_forever</i>	
+											
+			
 			fieldset(style="padding:25px;")
 				h2(class="fs-title selmecAzul" style="margin-top:5px; margin-bottom:10px") <span data-i18n="demo.manutencao_form.audittrail"></span>
 				.row
@@ -983,6 +986,9 @@ block content
 			var current_fs, next_fs, previous_fs; //fieldsets
 			var left, opacity, scale; //fieldset properties which we will animate
 			var animating; //flag to prevent quick multi-click glitches
+
+			
+
 
 			$(".next").click(function(){
 			if(animating) return false;
