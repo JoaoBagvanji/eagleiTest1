@@ -27,13 +27,23 @@ const sleep = ms =>{
 
 
 
-router.get("/", function(req, res){
+router.get("/",async function(req, res){
 	if(req.session.usuario){
 	var userData=req.session.usuario;
 	var nome=userData.nome;
-
-	
-	if((req.session.usuario.nivel_acesso=="gestor")||(req.session.usuario.nivel_acesso=="admin")||(req.session.usuario.departamento_id=="615325f7699ee012d00db4e9")){
+	console.log("Chegueiiii")
+	var viaturas = [];
+	if(userData.funcao=="Manager"){
+		var data =await model.find({departamento_id: userData.departamento_id}, {nome: 1})
+		console.log(data)
+		await data.reduce(async (ac, obj, i)=>{
+			var veiculo =  await oficina.findOne({utilizado_por: obj.nome})
+			if(veiculo!=null){
+				viaturas.push(veiculo)
+			}
+		})
+		res.render('ferramenta_home', {DataU:userData, Ferramenta: viaturas, Usuarios: data, title: 'EagleI'});
+	}else if((req.session.usuario.nivel_acesso=="gestor")||(req.session.usuario.nivel_acesso=="admin")||(req.session.usuario.departamento_id=="615325f7699ee012d00db4e9")){
 	 oficina.find({}, null, {sort:{responsavel:1}}, function(err, data){
 		if(err)
 			console.log(err); 

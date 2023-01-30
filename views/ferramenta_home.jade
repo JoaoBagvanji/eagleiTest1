@@ -1,7 +1,7 @@
 extends layout
 block content
 	.container.seccao.white
-		-if((DataU.nome == "Lino Matandalasse")|| (DataU.nivel_acesso=="admin") ||(DataU.nome == "Faiza Tricamo"))
+		-if((DataU.nome == "Lino Matandalasse")|| (DataU.nivel_acesso=="admin") ||(DataU.nome == "Faiza Tricamo")||(DataU.funcao == "Manager"))
 			// .fixed-action-btn.top.fixed-add-bottom
 			// 	a.verde-policial-bg.activarAzul(data-position="left", data-delay="10", data-tooltip="add new user", class="btn-floating btn-large waves-effect waves-light", href="/ferramenta/novo") <i class=" activarAzul material-icons">add</i>
 			//- a(class="btn-floating btn-large activarAzul ") <i class="large material-icons activarVerde">menu</i>
@@ -15,7 +15,7 @@ block content
 			.fixed-action-btn.top.fixed-add-bottom
 				a(class="btn-floating btn-large activarAzul ") <i class="large material-icons activarVerde">menu</i>
 				ul(id="extrair", dados=stockData2)
-					if((DataU.nome == "Lino Matandalasse") || (DataU.nivel_acesso=="admin") || (DataU.nome=="Faiza Tricamo"))
+					if((DataU.nome == "Lino Matandalasse") || (DataU.nivel_acesso=="admin") || (DataU.nome=="Faiza Tricamo") ||(DataU.funcao == "Manager"))
 						li
 							a.btn-floating.tooltipped.pointer.activarAzul#exportar(data-position="left", data-delay="10", data-tooltip="Exportar lista", class="btn-floating btn-large waves-effect waves-light", href="/ferramenta/exportartocsvFerramentas") <i class="material-icons activarVerde">file_download</i>
 					else
@@ -51,11 +51,11 @@ block content
 							td #{Ferramenta[index].responsavel}
 							td.center-align
 								a.pointer.info(style="margin-left: 15px", data-position="top", data-delay="10", data-tooltip="Detalhes da Inspecção do #{Ferramenta[index].nome}", href="/ferramenta/detalhes/#{Ferramenta[index]._id}") <i class="material-icons activarVerde">info</i>
-								-if(DataU.nivel_acesso=="admin" || DataU.nome=="Faiza Tricamo")
+								-if(DataU.nivel_acesso=="admin" || DataU.nome=="Faiza Tricamo" || DataU.funcao == "Manager")
 									a.pointer.info(style="margin-left: 15px", data-position="top", data-delay="10", data-tooltip="Detalhes da Inspecção do #{Ferramenta[index].nome}", href="/ferramenta/editar/#{Ferramenta[index]._id}") <i class="material-icons selmecAzul">edit</i>
-								-if(((Ferramenta[index].responsavel=="Oficina")||(Ferramenta[index].responsavel=="Parque"))&&((DataU.nome=="Faiza Tricamo")||(DataU.funcao=="regional_manager")||(DataU.nivel_acesso=="admin")||(DataU.nome=="Lino Matandalasse")||(DataU.nome=="Leonardo Rungo")||(DataU.funcao_id=="611e2b8cf9b1b31cd868a30c")||(DataU.funcao_id=="611e3b3d6ed713019c50cf79")))
+								-if(((Ferramenta[index].responsavel=="Oficina")||(Ferramenta[index].responsavel=="Parque"))&&((DataU.nome=="Faiza Tricamo")||(DataU.funcao == "Manager")||(DataU.funcao=="regional_manager")||(DataU.nivel_acesso=="admin")||(DataU.nome=="Lino Matandalasse")||(DataU.nome=="Leonardo Rungo")||(DataU.funcao_id=="611e2b8cf9b1b31cd868a30c")||(DataU.funcao_id=="611e3b3d6ed713019c50cf79")))
 									a.delete-veiculo1.pointer(style="margin-left: 30px; color:red",data-position="top", data-delay="10", data-tooltip="Remover Inspecção de #{Ferramenta[index].nome}", data-user-id="#{Ferramenta[index].nome}", data-user-new="#{Ferramenta[index]._id}", href="/ferramenta/remove/#{Ferramenta[index]._id}") <img style='width:45px;' src=' /img/receivd.png'>
-								-if(((Ferramenta[index].responsavel!="Oficina")&&(Ferramenta[index].responsavel!="Parque"))&&((DataU.nome=="Faiza Tricamo")||(DataU.nivel_acesso=="admin")||(DataU.nome=="Lino Matandalasse")||(DataU.nome=="Leonardo Rungo")||(DataU.funcao_id=="611e2b8cf9b1b31cd868a30c")||(DataU.funcao_id=="611e3b3d6ed713019c50cf79")))
+								-if(((Ferramenta[index].responsavel!="Oficina")&&(Ferramenta[index].responsavel!="Parque"))&&((DataU.nome=="Faiza Tricamo")||(DataU.funcao == "Manager")||(DataU.nivel_acesso=="admin")||(DataU.nome=="Lino Matandalasse")||(DataU.nome=="Leonardo Rungo")||(DataU.funcao_id=="611e2b8cf9b1b31cd868a30c")||(DataU.funcao_id=="611e3b3d6ed713019c50cf79")))
 									a.delete-veiculo1.pointer(style="margin-left: 30px; color:red",data-position="top", data-delay="10", data-tooltip="Remover Inspecção de #{Ferramenta[index].nome}", data-user-id="#{Ferramenta[index].nome}", data-user-new="#{Ferramenta[index]._id}", href="/ferramenta/retirar/#{Ferramenta[index]._id}") <img style='width:20px;' src=' /img/park.png'>
 		block js
 		script.
