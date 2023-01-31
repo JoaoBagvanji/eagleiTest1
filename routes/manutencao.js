@@ -29096,7 +29096,7 @@ router.post("/updatesiteinfo",  upload.any(), async function(req, res){
 
 	siteinfo.siteinfo_client = procuracliente.cliente_nome;
 
-	var procurauser = await model.findOne({_id:siteinfo.siteinfo_maintoffid}, function(err,dataUser){
+	var procurauser = await model.find({_id:siteinfo.siteinfo_maintoffid}, function(err,dataUser){
 		if(err){
 			console.log("ocorreu um erro ao tentar aceder os dados")
 		}else{
